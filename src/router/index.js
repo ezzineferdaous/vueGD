@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import ContactView from '../views/ContactView.vue'
 import DestinationView from '../views/DestinationView.vue'
+import GallryView from '../views/GallryView.vue'
 
 
 const router = createRouter({
@@ -32,6 +33,11 @@ const router = createRouter({
       path: '/Destination',
       name: 'Destination',
       component: DestinationView
+    },
+    {
+      path: '/Gallry',
+      name: 'Gallry',
+      component: GallryView
     },
    
   ]

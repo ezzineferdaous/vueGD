@@ -35,12 +35,12 @@
                                 <div class="row">
                                     <div class="col-lg-5 col-md-6">
                                         <div class="thumb padd_1">
-                                            <img src="../../../assets/img/about/1.png" alt="">
+                                            <img src="../../../img/about/1.png" alt="">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6">
                                         <div class="thumb">
-                                            <img src="../../../assets/img/about/2.png" alt="">
+                                            <img src="../../../img/about/2.png" alt="">
                                         </div>
                                     </div>
                                 </div>
@@ -98,7 +98,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="single_travel text-center">
                         <div class="icon">
-                            <img src="../../../assets/img/svg_icon/1.svg" alt="">
+                            <img src="../../../img/svg_icon/1.svg" alt="">
                         </div>
                         <h3>Comfortable Journey</h3>
                         <p>A wonderful serenity has taken to the possession of my entire soul.</p>
@@ -107,7 +107,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="single_travel text-center">
                         <div class="icon">
-                            <img src="../../../assets/img/svg_icon/2.svg" alt="">
+                            <img src="../../../img/svg_icon/2.svg" alt="">
                         </div>
                         <h3>Luxuries Hotel</h3>
                         <p>A wonderful serenity has taken to the possession of my entire soul.</p>
@@ -116,7 +116,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="single_travel text-center">
                         <div class="icon">
-                            <img src="../../../assets/img/svg_icon/3.svg" alt="">
+                            <img src="../../../img/svg_icon/3.svg" alt="">
                         </div>
                         <h3>Travel Guide</h3>
                         <p>A wonderful serenity has taken to the possession of my entire soul.</p>
@@ -138,7 +138,7 @@
                                 <div class="col-lg-8">
                                     <div class="single_testmonial text-center">
                                         <div class="author_thumb">
-                                            <img src="../../../assets/img/testmonial/author.png" alt="">
+                                            <img src="../../../img/testmonial/author.png" alt="">
                                         </div>
                                         <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering.</p>
                                         <div class="testmonial_author">
@@ -153,7 +153,7 @@
                                 <div class="col-lg-8">
                                     <div class="single_testmonial text-center">
                                         <div class="author_thumb">
-                                            <img src="../../../assets/img/testmonial/author.png" alt="">
+                                            <img src="../../../img/testmonial/author.png" alt="">
                                         </div>
                                         <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering.</p>
                                         <div class="testmonial_author">
@@ -168,7 +168,7 @@
                                 <div class="col-lg-8">
                                     <div class="single_testmonial text-center">
                                         <div class="author_thumb">
-                                            <img src="../../../assets/img/testmonial/author.png" alt="">
+                                            <img src="../../../img/testmonial/author.png" alt="">
                                         </div>
                                         <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering.</p>
                                         <div class="testmonial_author">
@@ -199,7 +199,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="single_trip">
                         <div class="thumb">
-                            <img src="../../../assets/img/trip/1.png" alt="">
+                            <img src="../../../img//trip/1.png" alt="">
                         </div>
                         <div class="info">
                             <div class="date">
@@ -215,7 +215,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="single_trip">
                         <div class="thumb">
-                            <img src="../../../assets/img/trip/2.png" alt="">
+                            <img src="../../../img//trip/2.png" alt="">
                         </div>
                         <div class="info">
                             <div class="date">
@@ -231,7 +231,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="single_trip">
                         <div class="thumb">
-                            <img src="../../../assets/img/trip/3.png" alt="">
+                            <img src="../../../img//trip/3.png" alt="">
                         </div>
                         <div class="info">
                             <div class="date">

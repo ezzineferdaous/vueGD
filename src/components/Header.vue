@@ -26,16 +26,16 @@
         <router-link to="/About">About</router-link>
         </li>
 
-        <li ><router-link to="/" href="#">Destination </router-link>
+        <li ><router-link to="/Destination" href="#">Destination </router-link>
         </li>
         
                                                
 
-        <li><a href="/destination_details.html">gallry</a></li>>
+        <li><router-link to="/Gallry">gallry</router-link></li>
         
         
         
-        <li> <router-link to="/Contact">Contact</router-link></li>
+        <li><router-link to="/Contact"> Contact</router-link></li>
     </ul>
 </nav>
                                 </div>
@@ -43,7 +43,7 @@
                             <div class="col-xl-4 col-lg-4 d-none d-lg-block">
                                 <div class="social_wrap d-flex align-items-center justify-content-end">
                                     <div class="number">
-                                        <p> <i class="fa fa-phone"></i> 10(256)-928 256</p>
+                                        <p> <i class="#"></i> Login</p>
                                     </div>
                                     <div class="social_links d-none d-xl-block">
                                         <ul>
