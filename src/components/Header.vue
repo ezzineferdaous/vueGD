@@ -42,9 +42,11 @@
                             </div>
                             <div class="col-xl-4 col-lg-4 d-none d-lg-block">
                                 <div class="social_wrap d-flex align-items-center justify-content-end">
-                                    <div class="number">
-                                        <p> <i class="#"></i> Login</p>
-                                    </div>
+                                
+                                 <router-link to="/Login"  href="#">
+                                   Login
+                                </router-link>
+
                                     <div class="social_links d-none d-xl-block">
                                         <ul>
                                             <li><router-link to="/" href="#"> <i class="fa fa-instagram"></i> </router-link></li>
@@ -55,14 +57,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="seach_icon">
-                                <router-link to="/" data-toggle="modal" data-target="#exampleModalCenter" href="#">
-                                    <i class="fa fa-search"></i>
-                                </router-link>
-                            </div>
-                            <div class="col-12">
-                                <div class="mobile_menu d-block d-lg-none"></div>
-                            </div>
+                        
+                           
                         </div>
                     </div>
 
