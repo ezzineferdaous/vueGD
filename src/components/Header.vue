@@ -19,19 +19,14 @@
                                 <div class="main-menu  d-none d-lg-block">
 <nav>
     <ul id="navigation">
-        <li class="active">
-        <router-link to="/" >Home</router-link>
-        </li>
-        <li>
-        <router-link to="/About">About</router-link>
-        </li>
+        <li class="active"><router-link to="/" >Home</router-link></li>
+        <li><router-link to="/About">About</router-link></li>
 
-        <li ><router-link to="/Destination" href="#">Destination </router-link>
-        </li>
+        <li ><router-link to="/Destination" href="#">Destination </router-link></li>
+         <li ><router-link to="/User" href="#">User </router-link></li>
         
                                                
 
-        <li><router-link to="/Gallry">gallry</router-link></li>
         
         
         

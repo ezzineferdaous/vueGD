@@ -4,6 +4,7 @@ import AboutView from '../views/AboutView.vue'
 import ContactView from '../views/ContactView.vue'
 import DestinationView from '../views/DestinationView.vue'
 import GallryView from '../views/GallryView.vue'
+import UserView from '../views/UserView.vue'
 import LoginView from '../views/LoginView.vue'
 
 
@@ -41,10 +42,16 @@ const router = createRouter({
       component: GallryView
     },
     {
+      path: '/User',
+      name: 'User',
+      component: UserView
+    },
+    {
       path: '/Login',
       name: 'Login',
       component: LoginView
     },
+
    
   ]
 })

@@ -1,3 +1,10 @@
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
+
+
 (function ($) {
 "use strict";
 // TOP Menu Sticky
@@ -33,37 +40,31 @@ if(menu.length){
   // });
 
 // review-active
-$('.slider_active').owlCarousel({
-  loop:true,
-  margin:0,
-  items:1,
-  autoplay:true,
-  navText:['<i class="ti-angle-left"></i>','<i class="ti-angle-right"></i>'],
-  nav:true,
-  dots:false,
-  autoplayHoverPause: true,
-  autoplaySpeed: 800,
-  animateOut: 'fadeOut',
-  animateIn: 'fadeIn',
-  responsive:{
-      0:{
-          items:1,
-          nav:false,
-      },
-      767:{
-          items:1
-      },
-      992:{
-          items:1
-      },
-      1200:{
-          items:1
-      },
-      1600:{
-          items:1
-      }
-  }
+// Example of setting up data when the modal is shown
+$('#updateModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget); // Button that triggered the modal
+  var recipient = button.data('whatever'); // Extract info from data-* attributes
+  
+  // Update the modal's content. We'll use jQuery here
+  var modal = $(this);
+  modal.find('.modal-title').text('New message to ' + recipient);
+  modal.find('.modal-body input').val(recipient);
 });
+
+// Example of form submission
+$('#updateForm').on('submit', function (event) {
+  event.preventDefault();
+  
+  // Collect form data
+  var formData = $(this).serialize();
+  
+  // Process form data (e.g., send via AJAX)
+  console.log('Form Data:', formData);
+  
+  // Close the modal
+  $('#updateModal').modal('hide');
+});
+
 
 // review-active
 $('.testmonial_active').owlCarousel({

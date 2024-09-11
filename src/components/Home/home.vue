@@ -1,51 +1,29 @@
 <template>
   
     
-    <div class="slider_area">
-        <div class="slider_active owl-carousel">
-            <div class="single_slider  d-flex align-items-center slider_bg_1 overlay">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-xl-12 col-md-12">
-                            <div class="slider_text text-center">
-                                <h3>Indonesia</h3>
-                                <p>Pixel perfect design with awesome contents</p>
-                                <a href="#" class="boxed-btn3">Explore Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="single_slider  d-flex align-items-center slider_bg_2 overlay">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-xl-12 col-md-12">
-                            <div class="slider_text text-center">
-                                <h3>Australia</h3>
-                                <p>Pixel perfect design with awesome contents</p>
-                                <a href="#" class="boxed-btn3">Explore Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="single_slider  d-flex align-items-center slider_bg_3 overlay">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-xl-12 col-md-12">
-                            <div class="slider_text text-center">
-                                <h3>Switzerland</h3>
-                                <p>Pixel perfect design with awesome contents</p>
-                                <a href="#" class="boxed-btn3">Explore Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+   
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+        <img class="d-block w-100" src=../../../assets/img/banner/banner.png alt="First slide">
+        </div>
+        <div class="carousel-item">
+        <img class="d-block w-100" src="../../../assets/img/banner/banner2.png" alt="Second slide">
+        </div>
+        <div class="carousel-item">
+        <img class="d-block w-100" src="../../../assets/img/banner/banner4.png" alt="Third slide">
+        </div>
     </div>
-    <!-- slider_area_end -->
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+    </div>
 
     <!-- where_togo_area_start  -->
     <!-- <div class="where_togo_area">
@@ -375,12 +353,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="video_wrap text-center">
-                        <h3>Enjoy Video</h3>
-                        <div class="video_icon">
-                            <a class="popup-video video_play_button" href="https://youtu.be/QVoSgRbd69c?si=nRc_wm8ApZBihIPU">
-                                <i class="fa fa-play"></i>
-                            </a>
-                        </div>
+                        <h3>Enjoy view</h3>
+                       
                     </div>
                 </div>
             </div>
@@ -429,3 +403,10 @@
 
 
 </template>
+
+<style>
+  .carousel-item img {
+    height: 500px; /* Adjust the height as needed */
+    object-fit: cover; /* Ensure the image covers the container without distortion */
+  }
+</style>
