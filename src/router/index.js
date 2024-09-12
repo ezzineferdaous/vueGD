@@ -5,6 +5,7 @@ import ContactView from '../views/ContactView.vue'
 import DestinationView from '../views/DestinationView.vue'
 import GallryView from '../views/GallryView.vue'
 import UserView from '../views/UserView.vue'
+import AdminView from '../views/AdminView.vue'
 import LoginView from '../views/LoginView.vue'
 
 
@@ -45,6 +46,11 @@ const router = createRouter({
       path: '/User',
       name: 'User',
       component: UserView
+    },
+    {
+      path: '/Admin',
+      name: 'Admin',
+      component: AdminView
     },
     {
       path: '/Login',

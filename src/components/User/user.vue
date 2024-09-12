@@ -1,9 +1,10 @@
 <template>
- <div class="container mt-4">
-    <!-- Ajouter Button -->
-    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addVolleModal">
-      Ajouter
-    </button>
+  <div class="container mt-4">
+    <div class="container mt-3">
+      <button type="button" class="btn btn-primary" @click="showModal = true">
+        Ajouter
+      </button>
+    </div>
 
     <!-- Table -->
     <table class="table table-bordered">
@@ -34,61 +35,175 @@
           <td>+1234567890</td>
           <td>1990-01-01</td>
           <td>
-            <button class="btn btn-sm btn-warning">
-              <i class="fa-solid fa-pen"></i> Update
-            </button>
-            <button class="btn btn-sm btn-danger">
-              <i class="fa-solid fa-trash"></i> Delete
-            </button>
+            <!-- Update Button -->
+            <a @click="showUpdateModal = true"> <i class="fa fa-pencil" id="pencili"></i></a>
+
+            <!-- Delete Button -->
+            <a @click="showDeleteModal = true"> <i class="fa fa-trash" id="trashh"></i></a>
           </td>
         </tr>
       </tbody>
     </table>
-  </div>
 
-  <!-- Modal for "Ajouter" Button -->
-  <div class="modal fade" id="addVolleModal" tabindex="-1" aria-labelledby="addVolleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content modal-white-bg">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addVolleModalLabel">Add Volle</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- Add Modal -->
+    <div v-if="showModal" class="modal show" tabindex="-1" style="display: block; background-color: rgba(0,0,0,0.5)" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content modal-white-bg">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Volle</h5>
+            <button type="button" class="btn-close" @click="showModal = false"></button>
+          </div>
+          <div class="modal-body">
+            <!-- Form -->
+            <form @submit.prevent="submitForm">
+              <div class="mb-3">
+                <label for="ville" class="form-label">Ville</label>
+                <input type="text" class="form-control" v-model="volle.ville" placeholder="Enter Ville" required>
+              </div>
+              <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" v-model="volle.description" rows="3" placeholder="Enter Description" required></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="du" class="form-label">Du</label>
+                <input type="date" class="form-control" v-model="volle.du" required>
+              </div>
+              <div class="mb-3">
+                <label for="au" class="form-label">Au</label>
+                <input type="date" class="form-control" v-model="volle.au" required>
+              </div>
+              <div class="mb-3">
+                <label for="prix" class="form-label">Prix</label>
+                <input type="number" class="form-control" v-model="volle.prix" placeholder="Enter Prix" required>
+              </div>
+              <div class="mb-3">
+                <label for="avion" class="form-label">Avion</label>
+                <input type="text" class="form-control" v-model="volle.avion" placeholder="Enter Avion" required>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" @click="showModal = false">Close</button>
+            <button type="submit" class="btn btn-primary" @click="submitForm">Save Volle</button>
+          </div>
         </div>
-        <div class="modal-body">
-          <!-- Form inside modal -->
-          <form id="volleForm">
-            <div class="mb-3">
-              <label for="ville" class="form-label">Ville</label>
-              <input type="text" class="form-control" id="ville" placeholder="Enter Ville" required>
-            </div>
-            <div class="mb-3">
-              <label for="description" class="form-label">Description</label>
-              <textarea class="form-control" id="description" rows="3" placeholder="Enter Description" required></textarea>
-            </div>
-            <div class="mb-3">
-              <label for="du" class="form-label">Du</label>
-              <input type="date" class="form-control" id="du" required>
-            </div>
-            <div class="mb-3">
-              <label for="au" class="form-label">Au</label>
-              <input type="date" class="form-control" id="au" required>
-            </div>
-            <div class="mb-3">
-              <label for="prix" class="form-label">Prix</label>
-              <input type="number" class="form-control" id="prix" placeholder="Enter Prix" required>
-            </div>
-            <div class="mb-3">
-              <label for="avion" class="form-label">Avion</label>
-              <input type="text" class="form-control" id="avion" placeholder="Enter Avion" required>
-            </div>
-          </form>
+      </div>
+    </div>
+
+    <!-- Update Modal -->
+    <div v-if="showUpdateModal" class="modal" tabindex="-1" style="display: block; background-color: rgba(0,0,0,0.5)" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Update Information</h5>
+            <button type="button" class="btn-close" @click="showUpdateModal = false"></button>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="submitForm">
+              <div class="mb-3">
+                <label for="ville" class="form-label">Ville</label>
+                <input type="text" class="form-control" v-model="volle.ville" placeholder="Enter Ville" required>
+              </div>
+              <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" v-model="volle.description" rows="3" placeholder="Enter Description" required></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="du" class="form-label">Du</label>
+                <input type="date" class="form-control" v-model="volle.du" required>
+              </div>
+              <div class="mb-3">
+                <label for="au" class="form-label">Au</label>
+                <input type="date" class="form-control" v-model="volle.au" required>
+              </div>
+              <div class="mb-3">
+                <label for="prix" class="form-label">Prix</label>
+                <input type="number" class="form-control" v-model="volle.prix" placeholder="Enter Prix" required>
+              </div>
+              <div class="mb-3">
+                <label for="avion" class="form-label">Avion</label>
+                <input type="text" class="form-control" v-model="volle.avion" placeholder="Enter Avion" required>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="button" class="btn btn-secondary" @click="showUpdateModal = false">Cancel</button>
+          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" form="volleForm">Save Volle</button>
+      </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div v-if="showDeleteModal" class="modal" tabindex="-1" style="display: block; background-color: rgba(0,0,0,0.5)" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Confirm Delete</h5>
+            <button type="button" class="btn-close" @click="showDeleteModal = false"></button>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to delete this item?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" @click="deleteItem">Delete</button>
+            <button type="button" class="btn btn-secondary" @click="showDeleteModal = false">Cancel</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      showModal: false,
+      showUpdateModal: false,
+      showDeleteModal: false,
+      volle: {
+        ville: '',
+        description: '',
+        du: '',
+        au: '',
+        prix: '',
+        avion: '',
+      },
+    };
+  },
+  methods: {
+    submitForm() {
+      // Handle form submission logic
+      console.log('Form data:', this.volle);
+      this.showModal = false;  // Close modal after submit
+      this.showUpdateModal = false;  // Also handle the update modal
+    },
+    deleteItem() {
+      // Handle delete logic
+      console.log('Item deleted');
+      this.showDeleteModal = false;
+    },
+  },
+};
+</script>
+
+<style scoped>
+.modal {
+  background: rgba(0, 0, 0, 0.5);
+}
+.modal-content {
+  border-radius: 8px;
+}
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+.tablr-dark{
+    background-color: dodgerblue;
+}
+ tr {
+    border: 1px solid #dee2e6;
+    margin-top: 36px;
+}
+</style>

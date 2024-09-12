@@ -36,17 +36,7 @@
                                               </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label for="exampleFormControlSelect1">Travel type</label>
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                <option data-display="Travel type">Travel type</option>
-                                                <option value="1">advance</option>
-                                                <option value="2">advance</option>
-                                                <option value="4">premium</option>
-                                              </select>
-                                        </div>
-                                    </div>
+                                   
                                     
                                 </div>
                             </div>
@@ -66,9 +56,16 @@
                                     <a href="#" class="prise">$500</a>
                                 </div>
                                   <div class="container mt-3">
-                                    <button type="button" class="btn btn-primary" @click="showModal">
+                                    <button type="button" class="btn btn-primary" id="button" @click="showModal">
                                         Add
                                     </button>
+                                     <!-- Icons for Update and Delete -->
+                                    
+                                      <!-- Update Button -->
+                                    <a  @click="openUpdateModal" id="pencil">   <i class="fa fa-pencil"></i></a>
+
+                                    <!-- Delete Button -->
+                                    <a  @click="openDeleteModal" id="trash"> <i class="fa fa-trash"></i></a>
                                    
 
                                   </div>
@@ -95,13 +92,7 @@
 
                                     </div>
                                 </div>
-                                    <!-- Icons for Update and Delete -->
-                                    
-                                      <!-- Update Button -->
-                                    <a  @click="openUpdateModal">   <i class="fa fa-pencil"></i></a>
-
-                                    <!-- Delete Button -->
-                                    <a  @click="openDeleteModal"> <i class="fa fa-trash"></i></a>
+                                   
                                </div>
                                </div>
                                 <div class="col-lg-6 col-md-6">
@@ -111,9 +102,16 @@
                                             <a href="#" class="prise">$500</a>
                                         </div>
                                     <div class="container mt-3">
-                                            <button type="button" class="btn btn-primary" @click="showModal">
+                                            <button type="button" class="btn btn-primary" id="button" @click="showModal">
                                                 Add
                                             </button>
+                                             <!-- Icons for Update and Delete -->
+                                    
+                                      <!-- Update Button -->
+                                    <a  @click="openUpdateModal" id="pencil">   <i class="fa fa-pencil"></i></a>
+
+                                    <!-- Delete Button -->
+                                    <a  @click="openDeleteModal" id="trash"> <i class="fa fa-trash"></i></a>
                                         </div>
                                         <div class="place_info">
                                             <a href="/Gallry"><h3>Korola Megna</h3></a>
@@ -133,13 +131,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- Icons for Update and Delete -->
-                                    
-                                      <!-- Update Button -->
-                                    <a  @click="openUpdateModal">   <i class="fa fa-pencil"></i></a>
-
-                                    <!-- Delete Button -->
-                                    <a  @click="openDeleteModal"> <i class="fa fa-trash"></i></a>
+                                       
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6">
@@ -149,9 +141,16 @@
                                             <a href="#" class="prise">$500</a>
                                         </div>
                                     <div class="container mt-3">
-                                            <button type="button" class="btn btn-primary" @click="showModal">
+                                            <button type="button" class="btn btn-primary" id="button" @click="showModal">
                                                 Add
                                             </button>
+                                             <!-- Icons for Update and Delete -->
+                                    
+                                      <!-- Update Button -->
+                                    <a  @click="openUpdateModal" id="pencil">   <i class="fa fa-pencil"></i></a>
+
+                                    <!-- Delete Button -->
+                                    <a  @click="openDeleteModal" id="trash"> <i class="fa fa-trash"></i></a>
                                         </div>
                                         <div class="place_info">
                                             <a href="/Gallry"><h3>London</h3></a>
@@ -181,9 +180,16 @@
                                             <a href="#" class="prise">$500</a>
                                         </div>
                                     <div class="container mt-3">
-                                            <button type="button" class="btn btn-primary" @click="showModal">
+                                            <button type="button" class="btn btn-primary" id="button" @click="showModal">
                                                 Add
                                             </button>
+                                             <!-- Icons for Update and Delete -->
+                                    
+                                      <!-- Update Button -->
+                                    <a  @click="openUpdateModal" id="pencil">   <i class="fa fa-pencil"></i></a>
+
+                                    <!-- Delete Button -->
+                                    <a  @click="openDeleteModal" id="trash"> <i class="fa fa-trash"></i></a>
                                         </div>
                                         <div class="place_info">
                                             <a href="/Gallry"><h3>Miami Beach</h3></a>
@@ -212,9 +218,16 @@
                                             <a href="#" class="prise">$500</a>
                                         </div>
                                         <div class="container mt-3">
-                                            <button type="button" class="btn btn-primary" @click="showModal">
+                                            <button type="button" class="btn btn-primary" id="button" @click="showModal">
                                                 Add
                                             </button>
+                                             <!-- Icons for Update and Delete -->
+                                    
+                                      <!-- Update Button -->
+                                    <a  @click="openUpdateModal" id="pencil">   <i class="fa fa-pencil"></i></a>
+
+                                    <!-- Delete Button -->
+                                    <a  @click="openDeleteModal" id="trash"> <i class="fa fa-trash"></i></a>
                                         </div>
                                         <div class="place_info">
                                             <a href="/Gallry"><h3>California</h3></a>
@@ -243,9 +256,16 @@
                                             <a href="#" class="prise">$500</a>
                                         </div>
                                         <div class="container mt-3">
-                                            <button type="button" class="btn btn-primary" @click="showModal">
+                                            <button type="button" class="btn btn-primary" id="button" @click="showModal">
                                                 Add
                                             </button>
+                                             <!-- Icons for Update and Delete -->
+                                    
+                                      <!-- Update Button -->
+                                    <a  @click="openUpdateModal" id="pencil">   <i class="fa fa-pencil"></i></a>
+
+                                    <!-- Delete Button -->
+                                    <a  @click="openDeleteModal" id="trash"> <i class="fa fa-trash"></i></a>
                                         </div>
                                         <div class="place_info">
                                             <a href="/Gallry"><h3>Saintmartine Iceland</h3></a>
@@ -283,42 +303,50 @@
                             <h5 class="modal-title" id="addVolleModalLabel">Add Volle</h5>
                             <button type="button" class="btn-close" @click="hideModal"></button>
                         </div>
-                        <div class="modal-body">
-                            <!-- Form -->
-                            <form @submit.prevent="submitForm">
-                            <div class="mb-3">
-                                <label for="ville" class="form-label">Ville</label>
-                                <input type="text" class="form-control" v-model="volle.ville" placeholder="Enter Ville" required>
+                       <div class="registration-form">
+                        <form @submit.prevent="submitForm">
+                            <div class="form-icon">
+                                <span><i class="icon icon-user"></i></span>
                             </div>
-                            <div class="mb-3">
-                                <label for="description" class="form-label">Description</label>
-                                <textarea class="form-control" v-model="volle.description" rows="3" placeholder="Enter Description" required></textarea>
+                            <div class="form-group">
+                                <input type="text" class="form-control item" v-model="volle.ville" id="ville" placeholder="Enter Ville" required>
                             </div>
-                            <div class="mb-3">
-                                <label for="du" class="form-label">Du</label>
-                                <input type="date" class="form-control" v-model="volle.du" required>
+                            <div class="form-group">
+                                <textarea class="form-control item" v-model="volle.description" id="description" rows="3" placeholder="Enter Description" required></textarea>
                             </div>
-                            <div class="mb-3">
-                                <label for="au" class="form-label">Au</label>
-                                <input type="date" class="form-control" v-model="volle.au" required>
+                            <div class="form-group">
+                                <input type="date" class="form-control item" v-model="volle.du" id="du" placeholder="Du" required>
                             </div>
-                            <div class="mb-3">
-                                <label for="prix" class="form-label">Prix</label>
-                                <input type="number" class="form-control" v-model="volle.prix" placeholder="Enter Prix" required>
+                            <div class="form-group">
+                                <input type="date" class="form-control item" v-model="volle.au" id="au" placeholder="Au" required>
                             </div>
-                            <div class="mb-3">
-                                <label for="avion" class="form-label">Avion</label>
-                                <input type="text" class="form-control" v-model="volle.avion" placeholder="Enter Avion" required>
+                            <div class="form-group">
+                                <input type="number" class="form-control item" v-model="volle.prix" id="prix" placeholder="Enter Prix" required>
                             </div>
-                            </form>
+                            <div class="form-group">
+                                <input type="text" class="form-control item" v-model="volle.avion" id="avion" placeholder="Enter Avion" required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-block create-account">Submit</button>
+                            </div>
+                        </form>
+                        <div class="social-media">
+                            <h5>Sign up with social media</h5>
+                            <div class="social-icons">
+                                <a href="#"><i class="icon-social-facebook" title="Facebook"></i></a>
+                                <a href="#"><i class="icon-social-google" title="Google"></i></a>
+                                <a href="#"><i class="icon-social-twitter" title="Twitter"></i></a>
+                            </div>
                         </div>
+                    </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" @click="hideModal">Close</button>
                             <button type="submit" class="btn btn-primary" @click="submitForm">Save Volle</button>
                         </div>
                     </div>
                     </div>
-                
+                 >
                     </div>
                     </div>
                 </div>
@@ -472,6 +500,19 @@ export default {
     };
   },
   methods: {
+     showModal() {
+      const modal = new bootstrap.Modal(this.$refs.modal);
+      modal.show();
+    },
+    hideModal() {
+      const modal = new bootstrap.Modal(this.$refs.modal);
+      modal.hide();
+    },
+    submitForm() {
+      // Handle form submission logic here
+      console.log('Volle details:', this.volle);
+      this.hideModal();
+    },
     openUpdateModal() {
       this.showUpdateModal = true;
     },
@@ -576,7 +617,8 @@ export default {
   border-radius: 8px;
 }
 .modal-title{
-    color : red;
+    color : green;
+        margin-left: 273px;
 }
 .form-label{
     color: gray; 
@@ -587,5 +629,6 @@ export default {
 a i {
     margin-left: 16px;
 }
+
 
 </style>

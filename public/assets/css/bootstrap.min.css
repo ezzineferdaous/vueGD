@@ -1796,7 +1796,9 @@ pre code {
 }
 
 .table-bordered {
-    border: 1px solid #dee2e6
+    border: 1px solid #dee2e6;
+    margin-top: 64px;
+    margin-bottom: 185px;
 }
 
 .table-bordered td,
@@ -1966,7 +1968,29 @@ pre code {
 
 .table-dark {
     color: #fff;
-    background-color: #212529
+    background-color: dodgerblue;
+}
+
+a i {
+margin-left: 28px;
+
+}
+#pencil{
+    color: var(--blue);
+    margin-left: 280px;
+}
+#pencili{
+    color: var(--blue);
+}
+#trashh{
+    color:red;
+}
+#trash{
+    color:red;
+}
+ #button{
+    border-radius: 20px;
+    
 }
 
 .table-dark td,
@@ -2639,7 +2663,8 @@ fieldset:disabled a.btn {
 .btn-primary {
     color: #fff;
     background-color: #007bff;
-    border-color: #007bff
+    border-color: #007bff;
+    border-radius: 20px
 }
 
 .btn-primary:hover {

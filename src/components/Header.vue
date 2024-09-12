@@ -17,22 +17,23 @@
                             </div>
                             <div class="col-xl-6 col-lg-6">
                                 <div class="main-menu  d-none d-lg-block">
-<nav>
-    <ul id="navigation">
-        <li class="active"><router-link to="/" >Home</router-link></li>
-        <li><router-link to="/About">About</router-link></li>
+                            <nav>
+                                <ul id="navigation">
+                                    <li class="active"><router-link to="/" >Home</router-link></li>
+                                    <li><router-link to="/About">About</router-link></li>
 
-        <li ><router-link to="/Destination" href="#">Destination </router-link></li>
-         <li ><router-link to="/User" href="#">User </router-link></li>
-        
-                                               
+                                    <li ><router-link to="/Destination" href="#">Destination </router-link></li>
+                                    <li ><router-link to="/User" href="#">User </router-link></li>
+                                    <li ><router-link to="/Admin" href="#">Admin </router-link></li>
+                                    
+                                                                        
 
-        
-        
-        
-        <li><router-link to="/Contact"> Contact</router-link></li>
-    </ul>
-</nav>
+                                    
+                                    
+                                    
+                                    <li><router-link to="/Contact"> Contact</router-link></li>
+                                </ul>
+                            </nav>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-4 d-none d-lg-block">
