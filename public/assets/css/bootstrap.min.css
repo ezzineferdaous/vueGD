@@ -175,6 +175,11 @@ sub {
 sup {
     top: -.5em
 }
+#addVolleModalLabel {
+    color: #E85C0D;
+    margin-bottom: 31px;
+
+}
 
 a {
     color: #007bff;
@@ -1794,10 +1799,13 @@ pre code {
 .table-sm th {
     padding: .3rem
 }
+#title{
+    color: #ff5e13;
+}
 
 .table-bordered {
     border: 1px solid #dee2e6;
-    margin-top: 64px;
+    margin-top: 26px;
     margin-bottom: 185px;
 }
 
@@ -1968,7 +1976,7 @@ pre code {
 
 .table-dark {
     color: #fff;
-    background-color: dodgerblue;
+    background-color: #FABC3F;
 }
 
 a i {
@@ -2626,7 +2634,7 @@ select.form-control-lg:not([size]):not([multiple]) {
     padding: .375rem .75rem;
     font-size: 1rem;
     line-height: 1.5;
-    border-radius: .25rem;
+    border-radius: 1.25rem;
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
 }
 
@@ -2662,9 +2670,11 @@ fieldset:disabled a.btn {
 
 .btn-primary {
     color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
-    border-radius: 20px
+    background-color: #E85C0D;
+    border-color: #FABC3F;
+    border-radius: 20px;
+    margin-top: 4px;
+  
 }
 
 .btn-primary:hover {
@@ -2853,14 +2863,23 @@ fieldset:disabled a.btn {
 
 .btn-danger {
     color: #fff;
-    background-color: #dc3545;
-    border-color: #dc3545
+    background-color: #C7253E;
+    border-radius: 20px;
+    border-color: #C7253E;
+
+}
+#Delete{
+    color: #fff;
+    background-color: #C7253E;
+    border-radius: 13px;
+    border-color: #C7253E;
+
 }
 
 .btn-danger:hover {
     color: #fff;
-    background-color: #c82333;
-    border-color: #bd2130
+    background-color: #FABC3F;
+    border-color: #FABC3F
 }
 
 .btn-danger.focus,
@@ -5757,7 +5776,7 @@ button.close {
     -ms-flex-pack: justify;
     justify-content: space-between;
     padding: 1rem;
-    border-bottom: 1px solid #e9ecef;
+    border-bottom: 1px solid white;
     border-top-left-radius: .3rem;
     border-top-right-radius: .3rem
 }
@@ -5791,7 +5810,7 @@ button.close {
     -ms-flex-pack: end;
     justify-content: flex-end;
     padding: 1rem;
-    border-top: 1px solid #e9ecef
+    border-top: 1px solid white
 }
 
 .modal-footer>:not(:first-child) {

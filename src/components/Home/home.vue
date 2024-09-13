@@ -1,146 +1,125 @@
 <template>
   
     
-   
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-        <img class="d-block w-100" src=../../../assets/img/banner/banner.png alt="First slide">
-        </div>
-        <div class="carousel-item">
-        <img class="d-block w-100" src="../../../assets/img/banner/banner2.png" alt="Second slide">
-        </div>
-        <div class="carousel-item">
-        <img class="d-block w-100" src="../../../assets/img/banner/banner4.png" alt="Third slide">
-        </div>
-    </div>
-    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-    </div>
-
-    <!-- where_togo_area_start  -->
-    <!-- <div class="where_togo_area">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-3">
-                    <div class="form_area">
-                        <h3>Where you want to go?</h3>
-                    </div>
+ <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="../../../assets/img/banner/banner.png" alt="Premier diaporama">
+                <!-- Contenu centré -->
+                <div class="carousel-caption d-flex flex-column justify-content-center align-items-center">
+                    <h3>Indonésie</h3>
+                    <p>Design pixel parfait avec des contenus géniaux</p>
+                    <a href="#" class="btn btn-primary" id="btn">Explorer maintenant</a>
                 </div>
-                <div class="col-lg-9">
-                    <div class="search_wrap">
-                        <form class="search_form" action="#">
-                            <div class="input_field">
-                                <input type="text" placeholder="Where to go?">
-                            </div>
-                            <div class="input_field">
-                                <input id="datepicker" placeholder="Date">
-                            </div>
-                            <div class="input_field">
-                                <select>
-                                    <option data-display="Travel type">Travel type</option>
-                                    <option value="1">Some option</option>
-                                    <option value="2">Another option</option>
-                                </select>
-                            </div>
-                            <div class="search_btn">
-                                <button class="boxed-btn4 " type="submit" >Search</button>
-                            </div>
-                        </form>
-                    </div>
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="../../../assets/img/banner/banner2.png" alt="Deuxième diaporama">
+                <!-- Contenu centré -->
+                <div class="carousel-caption d-flex flex-column justify-content-center align-items-center">
+                    <h3>Désert</h3>
+                    <p>Découvrez la beauté du pays du bout du monde</p>
+                    <a href="#" class="btn btn-primary" id="btn">Explorer maintenant</a>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="../../../assets/img/banner/banner4.png" alt="Troisième diaporama">
+                <!-- Contenu centré -->
+                <div class="carousel-caption d-flex flex-column justify-content-center align-items-center">
+                    <h3>Cappadoce</h3>
+                    <p>Découvrez les montagnes enneigées et la beauté pittoresque</p>
+                    <a href="#" class="btn btn-primary" id="btn">Explorer maintenant</a>
                 </div>
             </div>
         </div>
-    </div> -->
-    <!-- where_togo_area_end  -->
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Précédent</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Suivant</span>
+        </a>
+    </div>
+
+
+
+
     
-    <!-- popular_destination_area_start  -->
+     <!-- popular_destination_area_start  -->
     <div class="popular_destination_area">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <div class="section_title text-center mb_70">
-                        <h3>Popular Destination</h3>
-                        <p>Suffered alteration in some form, by injected humour or good day randomised booth anim 8-bit hella wolf moon beard words.</p>
-                    </div>
-                </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="section_title text-center mb_70">
+                <h3>Destinations Populaires</h3>
+                <p>Modification subie sous une forme quelconque, par humour injecté ou randomisation de bons jours, animation de cabine 8-bit, mot d’ours de lune.</p>
             </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_destination">
-                        <div class="thumb">
-                            <img src="../../../img/destination/1.png" alt="">
-                        </div>
-                        <div class="content">
-                            <p class="d-flex align-items-center">Italy <a href="travel_destination.html">  07 Places</a> </p>
-                            
-                        </div>
-                    </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-6">
+            <div class="single_destination">
+                <div class="thumb">
+                    <img src="../../../img/destination/1.png" alt="">
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_destination">
-                        <div class="thumb">
-                            <img src="../../../img/destination/2.png" alt="">
-                        </div>
-                        <div class="content">
-                            <p class="d-flex align-items-center">Brazil <a href="travel_destination.html">  03 Places</a> </p>
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_destination">
-                        <div class="thumb">
-                            <img src="../../../img/destination/3.png" alt="">
-                        </div>
-                        <div class="content">
-                            <p class="d-flex align-items-center">America <a href="travel_destination.html">  10 Places</a> </p>
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_destination">
-                        <div class="thumb">
-                            <img src="../../../img/destination/4.png" alt="">
-                        </div>
-                        <div class="content">
-                            <p class="d-flex align-items-center">Nepal <a href="travel_destination.html">  02 Places</a> </p>
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_destination">
-                        <div class="thumb">
-                            <img src="../../../img/destination/5.png" alt="">
-                        </div>
-                        <div class="content">
-                            <p class="d-flex align-items-center">Maldives <a href="travel_destination.html">  02 Places</a> </p>
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_destination">
-                        <div class="thumb">
-                            <img src="../../../img/destination/6.png" alt="">
-                        </div>
-                        <div class="content">
-                            <p class="d-flex align-items-center">Indonesia <a href="travel_destination.html">  05 Places</a> </p>
-                            
-                        </div>
-                    </div>
+                <div class="content">
+                    <p class="d-flex align-items-center">Italie <a href="travel_destination.html">  07 Lieux</a> </p>
                 </div>
             </div>
         </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="single_destination">
+                <div class="thumb">
+                    <img src="../../../img/destination/2.png" alt="">
+                </div>
+                <div class="content">
+                    <p class="d-flex align-items-center">Brésil <a href="travel_destination.html">  03 Lieux</a> </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="single_destination">
+                <div class="thumb">
+                    <img src="../../../img/destination/3.png" alt="">
+                </div>
+                <div class="content">
+                    <p class="d-flex align-items-center">Amérique <a href="travel_destination.html">  10 Lieux</a> </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="single_destination">
+                <div class="thumb">
+                    <img src="../../../img/destination/4.png" alt="">
+                </div>
+                <div class="content">
+                    <p class="d-flex align-items-center">Népal <a href="travel_destination.html">  02 Lieux</a> </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="single_destination">
+                <div class="thumb">
+                    <img src="../../../img/destination/5.png" alt="">
+                </div>
+                <div class="content">
+                    <p class="d-flex align-items-center">Maldives <a href="travel_destination.html">  02 Lieux</a> </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="single_destination">
+                <div class="thumb">
+                    <img src="../../../img/destination/6.png" alt="">
+                </div>
+                <div class="content">
+                    <p class="d-flex align-items-center">Indonésie <a href="travel_destination.html">  05 Lieux</a> </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
     </div>
     <!-- popular_destination_area_end  -->
 
@@ -174,8 +153,8 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="section_title text-center mb_70">
-                        <h3>Popular Places</h3>
-                        <p>Suffered alteration in some form, by injected humour or good day randomised booth anim 8-bit hella wolf moon beard words.</p>
+                        <h3>Lieux populaires</h3>
+                        <p>Modification subie sous une certaine forme, par humour injecté ou bons mots de barbe de lune de loup de 8 bits d'animation de stand aléatoire de bonne journée.</p>
                     </div>
                 </div>
             </div>
@@ -187,8 +166,8 @@
                             <a href="#" class="prise">$500</a>
                         </div>
                         <div class="place_info">
-                            <a href="destination_details.html"><h3>California</h3></a>
-                            <p>United State of America</p>
+                            <a href="/Gallry"><h3>California</h3></a>
+                            <p>États-Unis d'Amérique</p>
                             <div class="rating_days d-flex justify-content-between">
                                 <span class="d-flex justify-content-center align-items-center">
                                      <i class="fa fa-star"></i> 
@@ -213,8 +192,8 @@
                             <a href="#" class="prise">$500</a>
                         </div>
                         <div class="place_info">
-                            <a href="destination_details.html"><h3>Korola Megna</h3></a>
-                            <p>United State of America</p>
+                            <a href="Gallry"><h3>Korola Megna</h3></a>
+                            <p>États-Unis d'Amérique</p>
                             <div class="rating_days d-flex justify-content-between">
                                 <span class="d-flex justify-content-center align-items-center">
                                      <i class="fa fa-star"></i> 
@@ -240,7 +219,7 @@
                         </div>
                         <div class="place_info">
                             <a href="#"><h3>London</h3></a>
-                            <p>United State of America</p>
+                            <p>États-Unis d'Amérique</p>
                             <div class="rating_days d-flex justify-content-between">
                                 <span class="d-flex justify-content-center align-items-center">
                                      <i class="fa fa-star"></i> 
@@ -265,8 +244,8 @@
                             <a href="#" class="prise">$500</a>
                         </div>
                         <div class="place_info">
-                            <a href="destination_details.html"><h3>Miami Beach</h3></a>
-                            <p>United State of America</p>
+                            <a href="Gallry"><h3>Miami Beach</h3></a>
+                            <p>États-Unis d'Amérique</p>
                             <div class="rating_days d-flex justify-content-between">
                                 <span class="d-flex justify-content-center align-items-center">
                                      <i class="fa fa-star"></i> 
@@ -291,8 +270,8 @@
                             <a href="#" class="prise">$500</a>
                         </div>
                         <div class="place_info">
-                            <a href="destination_details.html"><h3>California</h3></a>
-                            <p>United State of America</p>
+                            <a href="Gallry"><h3>California</h3></a>
+                            <p>États-Unis d'Amérique</p>
                             <div class="rating_days d-flex justify-content-between">
                                 <span class="d-flex justify-content-center align-items-center">
                                      <i class="fa fa-star"></i> 
@@ -317,8 +296,8 @@
                             <a href="#" class="prise">$500</a>
                         </div>
                         <div class="place_info">
-                            <a href="destination_details.html"><h3>Saintmartine Iceland</h3></a>
-                            <p>United State of America</p>
+                            <a href="Gallry"><h3>Saintmartine Iceland</h3></a>
+                            <p>États-Unis d'Amérique</p>
                             <div class="rating_days d-flex justify-content-between">
                                 <span class="d-flex justify-content-center align-items-center">
                                      <i class="fa fa-star"></i> 
@@ -404,9 +383,31 @@
 
 </template>
 
-<style>
-  .carousel-item img {
+
+<style>  
+.carousel-item img {
     height: 500px; /* Adjust the height as needed */
     object-fit: cover; /* Ensure the image covers the container without distortion */
   }
+    .carousel-caption {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+    .carousel-caption h3 {
+        font-size: 3rem;
+        color: #fff;
+    }
+
+    .carousel-caption p {
+        color: #fff;
+        margin-bottom: 20px;
+    }
+
+    .carousel-caption a.btn {
+        padding: 10px 20px;
+    }
 </style>

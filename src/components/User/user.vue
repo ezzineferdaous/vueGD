@@ -1,12 +1,16 @@
-<template>
+<template> 
   <div class="container mt-4">
+  <h1 id="title"><u>Volle</u> </h1>
     <div class="container mt-3">
-      <button type="button" class="btn btn-primary" @click="showModal = true">
+
+   
+      <button type="button" class="btn btn-primary" id="button" @click="showModal = true">
         Ajouter
       </button>
     </div>
 
     <!-- Table -->
+    
     <table class="table table-bordered">
       <thead class="table-dark">
         <tr>
@@ -49,13 +53,12 @@
     <div v-if="showModal" class="modal show" tabindex="-1" style="display: block; background-color: rgba(0,0,0,0.5)" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content modal-white-bg">
-          <div class="modal-header">
-            <h5 class="modal-title">Add Volle</h5>
-            <button type="button" class="btn-close" @click="showModal = false"></button>
-          </div>
+         
           <div class="modal-body">
             <!-- Form -->
-            <form @submit.prevent="submitForm">
+            <form @submit.prevent="submitForm"> 
+            <h5 class="modal-title" id="title">Add Volle</h5>
+          
               <div class="mb-3">
                 <label for="ville" class="form-label">Ville</label>
                 <input type="text" class="form-control" v-model="volle.ville" placeholder="Enter Ville" required>
@@ -79,13 +82,14 @@
               <div class="mb-3">
                 <label for="avion" class="form-label">Avion</label>
                 <input type="text" class="form-control" v-model="volle.avion" placeholder="Enter Avion" required>
+              </div> 
+               <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" @click="showModal = false">Close</button>
+                <button type="submit" class="btn btn-primary"  @click="submitForm">Save Volle</button>
               </div>
             </form>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" @click="showModal = false">Close</button>
-            <button type="submit" class="btn btn-primary" @click="submitForm">Save Volle</button>
-          </div>
+        
         </div>
       </div>
     </div>
@@ -194,6 +198,16 @@ export default {
 }
 .modal-content {
   border-radius: 8px;
+  background-color: #fff;
+  max-width: 600px;
+  margin: auto;
+  padding: 50px 70px;
+  border-top-left-radius: 26px;
+  border-top-right-radius: 196px;
+
+}
+.modal-footer :hover {
+background-color: #FABC3F ;
 }
 .modal-footer {
   display: flex;

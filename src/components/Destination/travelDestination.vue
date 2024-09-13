@@ -299,15 +299,13 @@
                     <div class="modal fade" id="addVolleModal" tabindex="-1" aria-labelledby="addVolleModalLabel" aria-hidden="true" ref="modal">
                     <div class="modal-dialog">
                         <div class="modal-content modal-white-bg">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="addVolleModalLabel">Add Volle</h5>
-                            <button type="button" class="btn-close" @click="hideModal"></button>
-                        </div>
+                        
                        <div class="registration-form">
                         <form @submit.prevent="submitForm">
-                            <div class="form-icon">
-                                <span><i class="icon icon-user"></i></span>
-                            </div>
+                           <div class="modal-header">
+                            <h4 class="modal-title" id="addVolleModalLabel">Add Volle</h4>
+                           
+                        </div>
                             <div class="form-group">
                                 <input type="text" class="form-control item" v-model="volle.ville" id="ville" placeholder="Enter Ville" required>
                             </div>
@@ -326,25 +324,16 @@
                             <div class="form-group">
                                 <input type="text" class="form-control item" v-model="volle.avion" id="avion" placeholder="Enter Avion" required>
                             </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-block create-account">Submit</button>
-                            </div>
-                        </form>
-                        <div class="social-media">
-                            <h5>Sign up with social media</h5>
-                            <div class="social-icons">
-                                <a href="#"><i class="icon-social-facebook" title="Facebook"></i></a>
-                                <a href="#"><i class="icon-social-google" title="Google"></i></a>
-                                <a href="#"><i class="icon-social-twitter" title="Twitter"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                        <div class="modal-footer">
+                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" @click="hideModal">Close</button>
                             <button type="submit" class="btn btn-primary" @click="submitForm">Save Volle</button>
                         </div>
+                        </form>
+                        
                     </div>
+                    </div>
+
+                       
                     </div>
                  >
                     </div>
@@ -354,15 +343,14 @@
                 <div v-if="showUpdateModal" class="modal" tabindex="-1" role="dialog" style="display: block; background-color: rgba(0,0,0,0.5)">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Update Information</h5>
-                        <a  class="close" @click="closeUpdateModal">
-                        <span>&times;</span>
-                        </a>
-                    </div>
+                    
                     <div class="modal-body">
                         <!-- Form -->
                         <form @submit.prevent="submitForm">
+                       
+
+                        <h5 class="modal-title" id="addVolleModalLabel">Update Information</h5>
+                      
                         <div class="mb-3">
                             <label for="ville" class="form-label">Ville</label>
                             <input
@@ -435,17 +423,15 @@
                 <div v-if="showDeleteModal" class="modal" tabindex="-1" role="dialog" style="display: block; background-color: rgba(0,0,0,0.5)">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Confirm Delete</h5>
-                        <a  class="close" @click="closeDeleteModal">
-                        <span>&times;</span>
-                        </a>
+                    
+                    <div class="modal-body"><div class="modal-header">
+                        <h5 class="modal-title" id="addVolleModalLabel">Confirm Delete</h5>
+                       
                     </div>
-                    <div class="modal-body">
                         <p>Are you sure you want to delete this item?</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" @click="deleteItem">Supprimer</button>
+                        <button type="button" class="btn btn-danger" id="Delete" @click="deleteItem">Supprimer</button>
                         <button type="button" class="btn btn-secondary" @click="closeDeleteModal">Annuler</button>
                     </div>
                     </div>
@@ -549,7 +535,12 @@ export default {
   background: rgba(0, 0, 0, 0.5);
 }
 .modal-dialog {
+  background-color: #fff;
   max-width: 600px;
+  margin: auto;
+  border-top-left-radius: 26px;
+  border-top-right-radius: 196px;
+ 
 }
 </style>
 
@@ -575,30 +566,32 @@ export default {
 }
 
 .modal-body {
-  padding: 20px;
+  padding: 72px;
   background-color: withe ; 
 }
 
 .modal-footer {
-  border-top: 1px solid black;
+  border-top: 1px solid white;
   padding-top: 15px;
   display: flex;
   justify-content: flex-end;
 }
 
 .btn-primary {
-  background-color: #007bff;
+  background-color: #FABC3F;
   border-color: #000;
   transition: background-color 0.3s ease;
+   border-radius: 9px;
 }
 
 .btn-primary:hover {
-  background-color: #0056b3;
+  background-color: #E85C0D;
 }
 
 .btn-secondary {
   background-color: #6c757d;
   border-color: #000;
+  border-radius: 11px;
   transition: background-color 0.3s ease;
 }
 
@@ -609,17 +602,14 @@ export default {
 .form-control {
     border-radius: 6px;
     padding: 7px;
-    border: 1px solid #2e353e;
-    color:black;
+    border: 1px solid #FABC3F;
+    color: gray;
 }
 
 .modal-content {
   border-radius: 8px;
 }
-.modal-title{
-    color : green;
-        margin-left: 273px;
-}
+
 .form-label{
     color: gray; 
 }

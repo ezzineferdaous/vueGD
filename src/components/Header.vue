@@ -10,7 +10,6 @@
                             <div class="col-xl-2 col-lg-2">
                                 <div class="logo">
                                     <router-link to="/">
-
                                         <img src="../../assets/img/logo.png" alt="">
                                     </router-link>
                                 </div>
@@ -25,12 +24,6 @@
                                     <li ><router-link to="/Destination" href="#">Destination </router-link></li>
                                     <li ><router-link to="/User" href="#">User </router-link></li>
                                     <li ><router-link to="/Admin" href="#">Admin </router-link></li>
-                                    
-                                                                        
-
-                                    
-                                    
-                                    
                                     <li><router-link to="/Contact"> Contact</router-link></li>
                                 </ul>
                             </nav>
@@ -39,8 +32,8 @@
                             <div class="col-xl-4 col-lg-4 d-none d-lg-block">
                                 <div class="social_wrap d-flex align-items-center justify-content-end">
                                 
-                                 <router-link to="/Login"  href="#">
-                                   Login
+                                 <router-link to="/Login" id="span"  href="#">
+                                   Log<span>in</span>
                                 </router-link>
 
                                     <div class="social_links d-none d-xl-block">
