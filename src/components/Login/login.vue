@@ -15,21 +15,8 @@
             <label for="password" class="form-label">Password</label>
             <input type="password" v-model="password" id="password" class="form-control" placeholder="Password" />
           </div>
-
-          <!-- Role Selection -->
-          <div class="role-selection mb-3">
-            <button type="button" @click="toggleRoleDropdown" class="btn btn-primary">Select Your Role</button>
-            <div v-if="isRoleDropdownOpen" class="role-dropdown">
-              <label>
-                <input type="radio" value="admin" v-model="role" /> Admin
-              </label>
-              <label>
-                <input type="radio" value="user" v-model="role" /> User
-              </label>
-            </div>
-          </div>
-          <p v-if="role">Selected Role: {{ role }}</p>
         </div>
+      
 
         <!-- Register Form -->
         <div v-if="isRegister" class="register-form" id="register-form">
