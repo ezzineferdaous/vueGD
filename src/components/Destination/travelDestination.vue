@@ -21,427 +21,228 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="filter_result_wrap">
-                        <h3>Filter Result</h3>
-                        <div class="filter_bordered">
-                            <div class="filter_inner">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label for="exampleFormControlSelect1">Country</label>
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                <option data-display="Country">Country</option>
-                                                <option value="1">Africa</option>
-                                                <option value="2">canada</option>
-                                                <option value="4">USA</option>
-                                              </select>
-                                        </div>
-                                    </div>
-                                   
-                                    
-                                </div>
-                            </div>
+  <h3>Filter Result</h3>
+  <div class="filter_bordered">
+    <div class="filter_inner">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Destination</label>
+            <select v-model="selectedDestination" class="form-control" id="exampleFormControlSelect1">
+                <option value="">All Destinations</option>
+                <option v-for="destination in destinations" :key="destination.id" :value="destination.id">
+                    {{ destination.nom }}
+                 </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
 
-                            <div class="reset_btn">
-                                <button class="boxed-btn4" type="submit">Reset</button>
-                            </div>
+                    <br>
+                    <div class="filter_result_wrap">
+                        <h3>Destination</h3>
+                        <div class="filter_bordered">
+    <div class="filter_inner">
+        <div class="row">
+            <div class="col-lg-12">
+                <form @submit.prevent="submitFormDest">
+                    <div class="form-group">
+                        <label for="destinationInput">Destination</label>
+                        <div class="mb-3">
+                            <input
+                                id="destinationInput"
+                                type="text"
+                                class="form-control"
+                                v-model="newDestination.nom"
+                                placeholder="Enter Destination"
+                                required
+                            />
                         </div>
+                    </div>
+                    <div class="reset_btn">
+                        <button class="boxed-btn4" type="submit">ADD</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
                     </div>
                 </div>
                 <div class="col-lg-8">
                     <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="../../../img/place/1.png" alt="">
-                                    <a href="#" class="prise">$500</a>
-                                </div>
-                                  <div class="container mt-3">
-                                    <button type="button" class="btn btn-primary" id="button" @click="showModal">
-                                        Add
-                                    </button>
-                                     <!-- Icons for Update and Delete -->
-                                    
-                                      <!-- Update Button -->
-                                    <a  @click="openUpdateModal" id="pencil">   <i class="fa fa-pencil"></i></a>
+                         <!--  button add  -->
+                <div class="container mt-3 mb-3">
+                    <button type="button" class="btn btn-primary" id="button" @click="showModal">
+                         Add
+                         </button>
+                     </div>
+                     <br> <br>
 
-                                    <!-- Delete Button -->
-                                    <a  @click="openDeleteModal" id="trash"> <i class="fa fa-trash"></i></a>
-                                   
+                     <div class="col-lg-8" style="width: 90%;">
+                        <div class="row">
+                            <!-- Display all voles or filtered voles -->
+                            <div  v-for="volle in filteredVoles" :key="volle.id"  class="col-lg-6 col-md-6">
+                                <div class="single_place">
+          <div class="thumb">
 
-                                  </div>
-
-                                
-
-                                <div class="place_info">
-                                
-                                    <a href="/Gallry"><h3>California</h3></a>
-                                    <p>United State of America</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                        <div class="days">
-                                            <i class="fa fa-clock-o"></i>
-                                            <a href="#">5 Days</a>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                   
-                               </div>
-                               </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="single_place">
-                                        <div class="thumb">
-                                            <img src="../../../img/place/2.png" alt="">
-                                            <a href="#" class="prise">$500</a>
-                                        </div>
-                                    <div class="container mt-3">
-                                            <button type="button" class="btn btn-primary" id="button" @click="showModal">
-                                                Add
-                                            </button>
-                                             <!-- Icons for Update and Delete -->
-                                    
-                                      <!-- Update Button -->
-                                    <a  @click="openUpdateModal" id="pencil">   <i class="fa fa-pencil"></i></a>
-
-                                    <!-- Delete Button -->
-                                    <a  @click="openDeleteModal" id="trash"> <i class="fa fa-trash"></i></a>
-                                        </div>
-                                        <div class="place_info">
-                                            <a href="/Gallry"><h3>Korola Megna</h3></a>
-                                            <p>United State of America</p>
-                                            <div class="rating_days d-flex justify-content-between">
-                                                <span class="d-flex justify-content-center align-items-center">
-                                                    <i class="fa fa-star"></i> 
-                                                    <i class="fa fa-star"></i> 
-                                                    <i class="fa fa-star"></i> 
-                                                    <i class="fa fa-star"></i> 
-                                                    <i class="fa fa-star"></i>
-                                                    <a href="#">(20 Review)</a>
-                                                </span>
-                                                <div class="days">
-                                                    <i class="fa fa-clock-o"></i>
-                                                    <a href="#">5 Days</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                       
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="single_place">
-                                        <div class="thumb">
-                                            <img src="../../../img/place/3.png" alt="">
-                                            <a href="#" class="prise">$500</a>
-                                        </div>
-                                    <div class="container mt-3">
-                                            <button type="button" class="btn btn-primary" id="button" @click="showModal">
-                                                Add
-                                            </button>
-                                             <!-- Icons for Update and Delete -->
-                                    
-                                      <!-- Update Button -->
-                                    <a  @click="openUpdateModal" id="pencil">   <i class="fa fa-pencil"></i></a>
-
-                                    <!-- Delete Button -->
-                                    <a  @click="openDeleteModal" id="trash"> <i class="fa fa-trash"></i></a>
-                                        </div>
-                                        <div class="place_info">
-                                            <a href="/Gallry"><h3>London</h3></a>
-                                            <p>United State of America</p>
-                                            <div class="rating_days d-flex justify-content-between">
-                                                <span class="d-flex justify-content-center align-items-center">
-                                                    <i class="fa fa-star"></i> 
-                                                    <i class="fa fa-star"></i> 
-                                                    <i class="fa fa-star"></i> 
-                                                    <i class="fa fa-star"></i> 
-                                                    <i class="fa fa-star"></i>
-                                                    <a href="#">(20 Review)</a>
-                                                </span>
-                                                <div class="days">
-                                                    <i class="fa fa-clock-o"></i>
-                                                    <a href="#">5 Days</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="single_place">
-                                        <div class="thumb">
-                                            <img src="../../../img/place/4.png" alt="">
-                                            <a href="#" class="prise">$500</a>
-                                        </div>
-                                    <div class="container mt-3">
-                                            <button type="button" class="btn btn-primary" id="button" @click="showModal">
-                                                Add
-                                            </button>
-                                             <!-- Icons for Update and Delete -->
-                                    
-                                      <!-- Update Button -->
-                                    <a  @click="openUpdateModal" id="pencil">   <i class="fa fa-pencil"></i></a>
-
-                                    <!-- Delete Button -->
-                                    <a  @click="openDeleteModal" id="trash"> <i class="fa fa-trash"></i></a>
-                                        </div>
-                                        <div class="place_info">
-                                            <a href="/Gallry"><h3>Miami Beach</h3></a>
-                                            <p>United State of America</p>
-                                            <div class="rating_days d-flex justify-content-between">
-                                                <span class="d-flex justify-content-center align-items-center">
-                                                    <i class="fa fa-star"></i> 
-                                                    <i class="fa fa-star"></i> 
-                                                    <i class="fa fa-star"></i> 
-                                                    <i class="fa fa-star"></i> 
-                                                    <i class="fa fa-star"></i>
-                                                    <a href="#">(20 Review)</a>
-                                                </span>
-                                                <div class="days">
-                                                    <i class="fa fa-clock-o"></i>
-                                                    <a href="#">5 Days</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="single_place">
-                                        <div class="thumb">
-                                            <img src="../../../img/place/5.png" alt="">
-                                            <a href="#" class="prise">$500</a>
-                                        </div>
-                                        <div class="container mt-3">
-                                            <button type="button" class="btn btn-primary" id="button" @click="showModal">
-                                                Add
-                                            </button>
-                                             <!-- Icons for Update and Delete -->
-                                    
-                                      <!-- Update Button -->
-                                    <a  @click="openUpdateModal" id="pencil">   <i class="fa fa-pencil"></i></a>
-
-                                    <!-- Delete Button -->
-                                    <a  @click="openDeleteModal" id="trash"> <i class="fa fa-trash"></i></a>
-                                        </div>
-                                        <div class="place_info">
-                                            <a href="/Gallry"><h3>California</h3></a>
-                                            <p>United State of America</p>
-                                            <div class="rating_days d-flex justify-content-between">
-                                                <span class="d-flex justify-content-center align-items-center">
-                                                    <i class="fa fa-star"></i> 
-                                                    <i class="fa fa-star"></i> 
-                                                    <i class="fa fa-star"></i> 
-                                                    <i class="fa fa-star"></i> 
-                                                    <i class="fa fa-star"></i>
-                                                    <a href="#">(20 Review)</a>
-                                                </span>
-                                                <div class="days">
-                                                    <i class="fa fa-clock-o"></i>
-                                                    <a href="#">5 Days</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="single_place">
-                                        <div class="thumb">
-                                            <img src="../../../img/place/6.png" alt="">
-                                            <a href="#" class="prise">$500</a>
-                                        </div>
-                                        <div class="container mt-3">
-                                            <button type="button" class="btn btn-primary" id="button" @click="showModal">
-                                                Add
-                                            </button>
-                                             <!-- Icons for Update and Delete -->
-                                    
-                                      <!-- Update Button -->
-                                    <a  @click="openUpdateModal" id="pencil">   <i class="fa fa-pencil"></i></a>
-
-                                    <!-- Delete Button -->
-                                    <a  @click="openDeleteModal" id="trash"> <i class="fa fa-trash"></i></a>
-                                        </div>
-                                        <div class="place_info">
-                                            <a href="/Gallry"><h3>Saintmartine Iceland</h3></a>
-                                            <p>United State of America</p>
-                                            <div class="rating_days d-flex justify-content-between">
-                                                <span class="d-flex justify-content-center align-items-center">
-                                                    <i class="fa fa-star"></i> 
-                                                    <i class="fa fa-star"></i> 
-                                                    <i class="fa fa-star"></i> 
-                                                    <i class="fa fa-star"></i> 
-                                                    <i class="fa fa-star"></i>
-                                                    <a href="#">(20 Review)</a>
-                                                </span>
-                                                <div class="days">
-                                                    <i class="fa fa-clock-o"></i>
-                                                    <a href="#">5 Days</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="more_place_btn text-center">
-                                <a class="boxed-btn4" href="#">More Places</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Modal -->
-                    <div class="modal fade" id="addVolleModal" tabindex="-1" aria-labelledby="addVolleModalLabel" aria-hidden="true" ref="modal">
-                    <div class="modal-dialog">
-                        <div class="modal-content modal-white-bg">
-                        
-                       <div class="registration-form">
-                        <form @submit.prevent="submitForm">
-                           <div class="modal-header">
-                            <h4 class="modal-title" id="addVolleModalLabel">Add Volle</h4>
-                           
-                        </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control item" v-model="volle.ville" id="ville" placeholder="Enter Ville" required>
-                            </div>
-                            <div class="form-group">
-                                <textarea class="form-control item" v-model="volle.description" id="description" rows="3" placeholder="Enter Description" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <input type="date" class="form-control item" v-model="volle.du" id="du" placeholder="Du" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="date" class="form-control item" v-model="volle.au" id="au" placeholder="Au" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="number" class="form-control item" v-model="volle.prix" id="prix" placeholder="Enter Prix" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control item" v-model="volle.avion" id="avion" placeholder="Enter Avion" required>
-                            </div>
-                           <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" @click="hideModal">Close</button>
-                            <button type="submit" class="btn btn-primary" @click="submitForm">Save Volle</button>
-                        </div>
-                        </form>
-                        
-                    </div>
-                    </div>
-
-                       
-                    </div>
-                 >
-                    </div>
-                    </div>
-                </div>
-                <!-- Update Modal (Form) -->
-                <div v-if="showUpdateModal" class="modal" tabindex="-1" role="dialog" style="display: block; background-color: rgba(0,0,0,0.5)">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                    
-                    <div class="modal-body">
-                        <!-- Form -->
-                        <form @submit.prevent="submitForm">
-                       
-
-                        <h5 class="modal-title" id="addVolleModalLabel">Update Information</h5>
-                      
-                        <div class="mb-3">
-                            <label for="ville" class="form-label">Ville</label>
-                            <input
-                            type="text"
-                            class="form-control"
-                            v-model="volle.ville"
-                            placeholder="Enter Ville"
-                            required
-                            />
-                        </div>
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Description</label>
-                            <textarea
-                            class="form-control"
-                            v-model="volle.description"
-                            rows="3"
-                            placeholder="Enter Description"
-                            required
-                            ></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="du" class="form-label">Du</label>
-                            <input
-                            type="date"
-                            class="form-control"
-                            v-model="volle.du"
-                            required
-                            />
-                        </div>
-                        <div class="mb-3">
-                            <label for="au" class="form-label">Au</label>
-                            <input
-                            type="date"
-                            class="form-control"
-                            v-model="volle.au"
-                            required
-                            />
-                        </div>
-                        <div class="mb-3">
-                            <label for="prix" class="form-label">Prix</label>
-                            <input
-                            type="number"
-                            class="form-control"
-                            v-model="volle.prix"
-                            placeholder="Enter Prix"
-                            required
-                            />
-                        </div>
-                        <div class="mb-3">
-                            <label for="avion" class="form-label">Avion</label>
-                            <input
-                            type="text"
-                            class="form-control"
-                            v-model="volle.avion"
-                            placeholder="Enter Avion"
-                            required
-                            />
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Update</button>
-                            <button type="button" class="btn btn-secondary" @click="closeUpdateModal">Cancel</button>
-                        </div>
-                        </form>
-                    </div>
-                    </div>
-                </div>
-                </div>
-
-                <!-- Delete Modal (Confirmation) -->
-                <div v-if="showDeleteModal" class="modal" tabindex="-1" role="dialog" style="display: block; background-color: rgba(0,0,0,0.5)">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                    
-                    <div class="modal-body"><div class="modal-header">
-                        <h5 class="modal-title" id="addVolleModalLabel">Confirm Delete</h5>
-                       
-                    </div>
-                        <p>Are you sure you want to delete this item?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="Delete" @click="deleteItem">Supprimer</button>
-                        <button type="button" class="btn btn-secondary" @click="closeDeleteModal">Annuler</button>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-            
-         </div>
+            <img :src="`http://localhost:8000/images/${volle.image}`" alt="Vole Image" v-if="volle.image" /> 
+            <a href="#" class="prise">{{ volle.prix }}$</a>
+          </div>
+          <!-- Icons for Update and Delete -->
       
+            <!-- Update Button -->
+            <a @click="openUpdateModal(volle)" id="pencil">
+              <i class="fa fa-pencil"></i>
+            </a>
+            <!-- Delete Button -->
+            <a @click="openDeleteModal(volle.id)" id="trash">
+              <i class="fa fa-trash"></i>
+            </a>
+          <div class="place_info">
+              <router-link :to="{ name: 'Gallry', params: { id: volle.id } }">
+                <h3>{{ volle.ville }}</h3>
+              </router-link>
+            <p>{{ volle.description }}</p>
+            <div class="rating_days d-flex justify-content-between">
+              <span class="d-flex justify-content-center align-items-center">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <a href="#">(20 Review)</a>
+              </span>
+              <div class="days">
+                <i class="fa fa-clock-o"></i>
+                <a href="#">{{ volle.duree }} Days</a>
+              </div>
+            </div>
+          </div>
+        </div>
+                        </div>
+                     </div>
+        
 
+                        </div>
+                    </div> 
+                     </div>
+                   
+
+
+                    <!-- Modal -->
+                    <div v-if="addVolleModal" class="modal" style="display: block; background-color: rgba(0,0,0,0.5)">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="registration-form">
+            <form @submit.prevent="submitFormVolle">
+              <div class="modal-header">
+                <h4 class="modal-title">Add Volle</h4>
+              </div>
+              <div class="form-group">
+                <select class="form-control" id="exampleFormControlSelect1" v-model="volle.destination_id">
+                    <option value="">Select Destination</option>
+                    <option v-for="destination in destinations" :key="destination.id" :value="destination.id">
+                        {{ destination.nom }}
+                    </option>
+                </select>
+            </div>
+              <div class="form-group">
+                <input type="text" class="form-control" v-model="volle.ville" placeholder="Enter Ville" required />
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" v-model="volle.description" rows="3" placeholder="Enter Description" required></textarea>
+              </div>
+              <div class="form-group">
+                <input type="date" class="form-control" v-model="volle.du" placeholder="Du" required />
+              </div>
+              <div class="form-group">
+                <input type="date" class="form-control" v-model="volle.au" placeholder="Au" required />
+              </div>
+              <div class="form-group">
+                <input type="number" class="form-control" v-model="volle.prix" placeholder="Enter Prix" required />
+              </div>
+              <!-- Image Upload -->
+              <div class="form-group">
+                <input type="file" class="form-control" @change="onFileChange" />
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" @click="hideModal">Close</button>
+                <button type="submit" class="btn btn-primary">Save Volle</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+               <!-- Update Modal -->
+    <div v-if="showUpdateModal" class="modal" style="display: block; background-color: rgba(0,0,0,0.5)">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <form @submit.prevent="submitForm">
+              <h5 class="modal-title">Update Information</h5>
+              <div class="form-group">
+                <select class="form-control" id="exampleFormControlSelect1" v-model="volle.destination_id">
+                    <option value="">Select Destination</option>
+                    <option v-for="destination in destinations" :key="destination.id" :value="destination.id">
+                        {{ destination.nom }}
+                    </option>
+                </select>
+            </div>
+              <div class="form-group">
+                <input type="text" class="form-control" v-model="volle.ville" placeholder="Enter Ville" required />
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" v-model="volle.description" rows="3" placeholder="Enter Description" required></textarea>
+              </div>
+              <div class="form-group">
+                <input type="date" class="form-control" v-model="volle.du" placeholder="Du" required />
+              </div>
+              <div class="form-group">
+                <input type="date" class="form-control" v-model="volle.au" placeholder="Au" required />
+              </div>
+              <div class="form-group">
+                <input type="number" class="form-control" v-model="volle.prix" placeholder="Enter Prix" required />
+              </div>
+              <!-- Image Upload -->
+              <div class="form-group">
+                    <input type="file" class="form-control" @change="onFileChange" />
+                </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" @click="closeUpdateModal">Cancel</button>
+                <button type="submit" class="btn btn-primary">Update</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+                <!-- Delete Modal -->
+    <div v-if="showDeleteModal" class="modal" style="display: block; background-color: rgba(0,0,0,0.5)">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h5>Are you sure you want to delete this Vole?</h5>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" @click="deleteItem(volleToDelete)">Delete</button>
+              <button type="button" class="btn btn-secondary" @click="closeDeleteModal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+      
+</div>
+</div>
+    
         <!-- newletter_area_start  -->
         <div class="newletter_area overlay">
             <div class="container">
@@ -450,9 +251,7 @@
                         <div class="row align-items-center">
                             <div class="col-lg-5">
                                 <div class="newsletter_text">
-                                    <h4>Abonnez-vous à notre newsletter</h4>
-                                    <p>Abonnez-vous à la newsletter 
-                                    pour recevoir des offres et des informations sur de nouveaux endroits à découvrir.</p>
+                                    
                                 </div>
                             </div>
                             <div class="col-lg-7">    
@@ -470,58 +269,268 @@
 
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
+        destinations: [],
+        newDestination: {
+        nom: ''
+      },
+      addVolleModal: false,
       showUpdateModal: false,
       showDeleteModal: false,
+      volleToDelete: null,
       volle: {
         ville: '',
         description: '',
         du: '',
         au: '',
         prix: '',
-        avion: '',
+        image: null, 
+        destination_id: ''
       },
+      filteredVoles: [],
+      voles: [],
+      selectedDestination: '',  // Variable to bind selected destination
+      imageUrl: null,
     };
   },
+  computed: {
+    filteredVoles() {
+      if (!this.selectedDestination) {
+        // If no destination is selected, show all voles
+        return this.voles;
+      }
+      // Otherwise, filter voles based on the selected destination
+      return this.voles.filter(
+        (volle) => volle.destination_id === parseInt(this.selectedDestination)
+      );
+    },
+  },
   methods: {
-     showModal() {
-      const modal = new bootstrap.Modal(this.$refs.modal);
-      modal.show();
+    /*handleImageUpload(event) {
+        this.image = event.target.files[0];
+     },*/
+
+     /*handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        this.volle.image = file.name;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.imageUrl = e.target.result; // Display the image preview
+        };
+        reader.readAsDataURL(file);
+      }
+    },*/
+
+     // Handle file input change
+    onFileChange(event) {
+      const file = event.target.files[0];
+      if (file) {
+        this.volle.image = file; // Store the file for upload
+      }
+    },
+    fetchVoles() {
+      axios
+        .get('http://localhost:8000/api/voles')
+        .then(response => {
+          this.voles = response.data;
+        })
+        .catch(error => {
+          console.error('Error fetching voles:', error);
+        });
+    },
+    filterByDestination() {
+      if (this.selectedDestination) {
+        // Filter the 'allVoles' array based on the selected destination
+        this.filteredVoles = this.voles.filter(vole => vole.destination_id === this.selectedDestination);
+      } else {
+        // If no destination is selected, show all voles
+        this.filteredVoles = this.voles;
+      }
+    },
+    resetFilter() {
+      // Reset the selected destination and show all voles
+      this.selectedDestination = '';
+      this.filteredVoles = this.voles;
+    },
+    fetchDestinations() {
+    axios.get('http://localhost:8000/api/destination')
+    .then(response => {
+          console.log('Destinations fetched:', response.data);  // Check the fetched data
+          this.destinations = response.data;
+        })
+        .catch(error => {
+          console.error('There was an error fetching destinations!', error);
+        });
     },
     hideModal() {
-      const modal = new bootstrap.Modal(this.$refs.modal);
-      modal.hide();
+      this.addVolleModal = false;
     },
-    submitForm() {
-      // Handle form submission logic here
-      console.log('Volle details:', this.volle);
-      this.hideModal();
+    showModal() {
+        this.volle = { 
+      ville: '', 
+      description: '', 
+      du: '', 
+      au: '', 
+      prix: '', 
+      destination_id: '' 
+    }; // Clear the inputs
+      this.addVolleModal = true;
     },
-    openUpdateModal() {
+    submitFormDest() {
+      axios.post('http://localhost:8000/api/destination', this.newDestination)
+        .then(response => {
+          console.log('Destination added:', response.data);
+          this.newDestination.nom = ''; // Clear the input field
+          this.fetchDestinations();
+          // Optionally, refresh the list of destinations or handle success
+        })
+        .catch(error => {
+          console.error('There was an error adding the destination!', error);
+        });
+    },
+    submitFormVolleTEST() {
+    /*const formData = new FormData();
+    formData.append('ville', this.volle.ville);
+    formData.append('description', this.volle.description);
+    formData.append('du', this.volle.du);
+    formData.append('au', this.volle.au);
+    formData.append('prix', this.volle.prix);
+    formData.append('destination_id', this.volle.destination_id);
+    if (this.imageFile) {
+      formData.append('image', this.imageFile);
+    }*/
+    const volledata = {
+      ville: this.volle.ville,
+      description: this.volle.description,
+    du: this.volle.du,
+    au: this.volle.au,
+    prix: this.volle.prix,
+    destination_id: this.volle.destination_id,
+    image: this.volle.image // Just the image name (string)
+    };
+    axios.post('http://localhost:8000/api/voles', volledata)
+      .then(response => {
+        this.voles.push(response.data);
+        this.hideModal();
+      })
+      .catch(error => {
+        console.error('Error adding volle:', error);
+      });
+  },
+
+  // Submit the form with FormData
+  submitFormVolle() {
+      const formData = new FormData();
+
+      // Append the form fields
+      formData.append('ville', this.volle.ville);
+      formData.append('description', this.volle.description);
+      formData.append('du', this.volle.du);
+      formData.append('au', this.volle.au);
+      formData.append('prix', this.volle.prix);
+      formData.append('destination_id', this.volle.destination_id);
+
+      // Append the image file if present
+      if (this.volle.image) {
+        formData.append('image', this.volle.image);
+      }
+
+      // Send the data via axios
+      axios.post('http://localhost:8000/api/voles', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      .then(response => {
+        console.log('Vole saved successfully!', response.data);
+        this.fetchVoles();
+        this.hideModal();
+        // Handle success (e.g., clear form, update UI)
+      })
+      .catch(error => {
+        console.error('There was an error saving the vole:', error);
+      });
+    },
+    openUpdateModal(volle) {
+      this.volle = { ...volle }; // Clone the vol object into the form data
       this.showUpdateModal = true;
     },
     closeUpdateModal() {
       this.showUpdateModal = false;
     },
-    openDeleteModal() {
+    openDeleteModal(id) {
+      this.volleToDelete = id;
       this.showDeleteModal = true;
     },
     closeDeleteModal() {
       this.showDeleteModal = false;
     },
-    submitForm() {
-      // Handle form submission logic
-      console.log("Updated form:", this.volle);
-      this.closeUpdateModal();
+    submitFormTEST2345() {
+      const volledata = {
+      ville: this.volle.ville,
+      description: this.volle.description,
+    du: this.volle.du,
+    au: this.volle.au,
+    prix: this.volle.prix,
+    destination_id: this.volle.destination_id,
+    image: this.volle.image // Just the image name (string)
+    };
+
+  axios.put(`http://localhost:8000/api/voles/${this.volle.id}`, volledata)
+    .then(response => {
+      this.volle = responsedata;
+      this.fetchVoles();
+      this.closeUpdateModal(); // Close modal if applicable
+    })
+    .catch(error => {
+      console.error('There was an error!', error);
+    });
+}
+,
+    deleteItem(id) {
+      axios
+        .delete(`http://localhost:8000/api/voles/${id}`)
+        .then(() => {
+          this.voles = this.voles.filter(v => v.id !== id);
+          this.closeDeleteModal();
+        })
+        .catch(error => {
+          console.error('Error deleting volle:', error);
+        });
     },
-    deleteItem() {
-      // Handle delete logic
-      console.log("Item deleted");
-      this.closeDeleteModal();
-    },
+    submitForm(){
+      const volledata = {
+      ville: this.volle.ville,
+      description: this.volle.description,
+    du: this.volle.du,
+    au: this.volle.au,
+    prix: this.volle.prix,
+    destination_id: this.volle.destination_id,
+    image: this.volle.image // Just the image name (string)
+    };
+
+      // Send the data via axios
+      axios.put(`http://localhost:8000/api/voles/${this.volle.id}`, volledata)
+      .then(response => {
+        console.log('Vole update successfully!', response.data);
+        this.fetchVoles();
+        this.closeUpdateModal();
+        // Handle success (e.g., clear form, update UI)
+      })
+      .catch(error => {
+        console.error('There was an error updating the vole:', error);
+      });
+    }
   },
+  mounted() {
+    this.fetchVoles();
+    this.fetchDestinations();
+  }
 };
 </script>
 
@@ -582,6 +591,9 @@ export default {
   border-color: #000;
   transition: background-color 0.3s ease;
    border-radius: 9px;
+   width: 100px;
+   float: right;
+
 }
 
 .btn-primary:hover {

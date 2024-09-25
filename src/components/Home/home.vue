@@ -1,5 +1,5 @@
 <template>
-  
+ 
     
  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
@@ -7,8 +7,8 @@
                 <img class="d-block w-100" src="../../../assets/img/banner/banner.png" alt="Premier diaporama">
                 <!-- Contenu centré -->
                 <div class="carousel-caption d-flex flex-column justify-content-center align-items-center">
-                    <h3>Indonésie</h3>
-                    <p>Design pixel parfait avec des contenus géniaux</p>
+                    <h3>ndonesia</h3>
+                    <p>Pixel perfect design with awesome contents</p>
                     <a href="#" class="btn btn-primary" id="btn">Explorer maintenant</a>
                 </div>
             </div>
@@ -51,8 +51,8 @@
     <div class="row justify-content-center">
         <div class="col-lg-6">
             <div class="section_title text-center mb_70">
-                <h3>Destinations Populaires</h3>
-                <p>Modification subie sous une forme quelconque, par humour injecté ou randomisation de bons jours, animation de cabine 8-bit, mot d’ours de lune.</p>
+                <h3>Let’s Travel Together</h3>
+                <p>Let’s travel together and explore new destinations, uncover hidden gems, and create unforgettable memories.</p>
             </div>
         </div>
     </div>
@@ -83,7 +83,7 @@
                     <img src="../../../img/destination/3.png" alt="">
                 </div>
                 <div class="content">
-                    <p class="d-flex align-items-center">Amérique <a href="travel_destination.html">  10 Lieux</a> </p>
+                    <p class="d-flex align-items-center">Australia <a href="travel_destination.html">  10 Lieux</a> </p>
                 </div>
             </div>
         </div>
@@ -103,7 +103,7 @@
                     <img src="../../../img/destination/5.png" alt="">
                 </div>
                 <div class="content">
-                    <p class="d-flex align-items-center">Maldives <a href="travel_destination.html">  02 Lieux</a> </p>
+                    <p class="d-flex align-items-center">Marocoo<a href="travel_destination.html">  02 Lieux</a> </p>
                 </div>
             </div>
         </div>
@@ -159,162 +159,28 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6" v-for="vole in voles.slice(0, 6)" :key="vole.id">
                     <div class="single_place">
                         <div class="thumb">
-                            <img src="../../../img/place/1.png" alt="">
-                            <a href="#" class="prise">$500</a>
+                            <img :src="`http://localhost:8000/images/${vole.image}`" alt="" v-if="vole.image" />
+                            <a href="#" class="prise">{{ vole.prix }}$</a>
                         </div>
                         <div class="place_info">
-                            <a href="/Gallry"><h3>California</h3></a>
-                            <p>États-Unis d'Amérique</p>
-                            <div class="rating_days d-flex justify-content-between">
-                                <span class="d-flex justify-content-center align-items-center">
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i>
-                                     <a href="#">(20 Review)</a>
-                                </span>
-                                <div class="days">
-                                    <i class="fa fa-clock-o"></i>
-                                    <a href="#">5 Days</a>
-                                </div>
+                            <a :href="`/Gallry/${vole.id}`"><h3>{{ vole.ville }}</h3></a>
+                            <p>{{ vole.description }}</p>
+                        <div class="rating_days d-flex justify-content-between">
+                             <span class="d-flex justify-content-center align-items-center">
+                                <i class="fa fa-star" v-for="n in 5" :key="n"></i>
+                                <a href="#">(20 Review)</a>
+                            </span>
+                            <div class="days">
+                                <i class="fa fa-clock-o"></i>
+                                <a href="#">{{ vole.duree }} Days</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_place">
-                        <div class="thumb">
-                            <img src="../../../img/place/2.png" alt="">
-                            <a href="#" class="prise">$500</a>
-                        </div>
-                        <div class="place_info">
-                            <a href="Gallry"><h3>Korola Megna</h3></a>
-                            <p>États-Unis d'Amérique</p>
-                            <div class="rating_days d-flex justify-content-between">
-                                <span class="d-flex justify-content-center align-items-center">
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i>
-                                     <a href="#">(20 Review)</a>
-                                </span>
-                                <div class="days">
-                                    <i class="fa fa-clock-o"></i>
-                                    <a href="#">5 Days</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_place">
-                        <div class="thumb">
-                            <img src="../../../img/place/3.png" alt="">
-                            <a href="#" class="prise">$500</a>
-                        </div>
-                        <div class="place_info">
-                            <a href="#"><h3>London</h3></a>
-                            <p>États-Unis d'Amérique</p>
-                            <div class="rating_days d-flex justify-content-between">
-                                <span class="d-flex justify-content-center align-items-center">
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i>
-                                     <a href="#">(20 Review)</a>
-                                </span>
-                                <div class="days">
-                                    <i class="fa fa-clock-o"></i>
-                                    <a href="#">5 Days</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_place">
-                        <div class="thumb">
-                            <img src="../../../img/place/4.png" alt="">
-                            <a href="#" class="prise">$500</a>
-                        </div>
-                        <div class="place_info">
-                            <a href="Gallry"><h3>Miami Beach</h3></a>
-                            <p>États-Unis d'Amérique</p>
-                            <div class="rating_days d-flex justify-content-between">
-                                <span class="d-flex justify-content-center align-items-center">
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i>
-                                     <a href="#">(20 Review)</a>
-                                </span>
-                                <div class="days">
-                                    <i class="fa fa-clock-o"></i>
-                                    <a href="#">5 Days</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_place">
-                        <div class="thumb">
-                            <img src="../../../img/place/5.png" alt="">
-                            <a href="#" class="prise">$500</a>
-                        </div>
-                        <div class="place_info">
-                            <a href="Gallry"><h3>California</h3></a>
-                            <p>États-Unis d'Amérique</p>
-                            <div class="rating_days d-flex justify-content-between">
-                                <span class="d-flex justify-content-center align-items-center">
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i>
-                                     <a href="#">(20 Review)</a>
-                                </span>
-                                <div class="days">
-                                    <i class="fa fa-clock-o"></i>
-                                    <a href="#">5 Days</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_place">
-                        <div class="thumb">
-                            <img src="../../../img/place/6.png" alt="">
-                            <a href="#" class="prise">$500</a>
-                        </div>
-                        <div class="place_info">
-                            <a href="Gallry"><h3>Saintmartine Iceland</h3></a>
-                            <p>États-Unis d'Amérique</p>
-                            <div class="rating_days d-flex justify-content-between">
-                                <span class="d-flex justify-content-center align-items-center">
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i>
-                                     <a href="#">(20 Review)</a>
-                                </span>
-                                <div class="days">
-                                    <i class="fa fa-clock-o"></i>
-                                    <a href="#">5 Days</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            </div>
             </div>
             <div class="row">
                 <div class="col-lg-12">
@@ -383,7 +249,30 @@
 
 </template>
 
-
+<script>
+import axios from 'axios';
+export default{
+    data() {
+       return {
+          voles: [],
+        }
+    },
+    mounted() {
+        this.fetchVoles(); // Fetch the voles when the component is mounted
+    },
+    methods:{
+        fetchVoles() {
+            axios.get('http://localhost:8000/api/voles') // Adjust the URL as needed
+                .then(response => {
+                this.voles = response.data; // Store the fetched voles
+            })
+                .catch(error => {
+                console.error('Error fetching voles:', error);
+            });
+        }
+    }
+}
+</script>
 <style>  
 .carousel-item img {
     height: 500px; /* Adjust the height as needed */

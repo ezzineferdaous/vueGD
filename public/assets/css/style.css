@@ -12,6 +12,16 @@
   -ms-flex-pack: start;
   justify-content: start;
 }
+/* #register-form {
+  padding: 20px;
+  background: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  width: 505px;
+  margin-top: -4px;
+  text-align: center;
+  margin-bottom: 312px;
+  height: 492PX;
+} */
 
 /* Normal desktop :1200px. */
 /* Normal desktop :992px. */
@@ -38,6 +48,7 @@ body {
   -moz-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
+
 }
 
 /* line 17, ../../Arafath/CL/December/231. Travel-02/HTML/scss/theme-default.scss */
@@ -47,6 +58,9 @@ a,
   -moz-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
+}
+#lgin{
+  margin-left: 659px;
 }
 
 /* line 21, ../../Arafath/CL/December/231. Travel-02/HTML/scss/theme-default.scss */
@@ -119,6 +133,7 @@ label {
   cursor: pointer;
   font-size: 14px;
   font-weight: 400;
+  display: flex;
 }
 
 /* line 75, ../../Arafath/CL/December/231. Travel-02/HTML/scss/theme-default.scss */
@@ -850,6 +865,7 @@ h3 {
   background: #fff;
   background: transparent;
   padding:-22px 100px 25px 35px;
+  height: 108px;
 }
 
 /* line 21, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_header.scss */
@@ -894,7 +910,7 @@ h3 {
 @media (min-width: 1200px) and (max-width: 1500px) {
   /* line 17, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_header.scss */
   .header-area .main-header-area {
-    padding: 30px 20px;
+    padding: 0px 0px;
   }
 }
 
@@ -1729,6 +1745,10 @@ h3 {
   z-index: 0;
 }
 
+#footer{
+  margin-top: 69px;
+
+}
 /* line 9, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_footer.scss */
 .footer .footer_top {
   padding-top: 115px;
@@ -2087,7 +2107,7 @@ h3 {
 
 /* line 37, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_bradcam.scss */
 .bradcam_area h3 {
-  font-size: 80px;
+  font-size: 40px;
   color: #fff;
   font-weight: 500;
   margin-bottom: 0;
@@ -2095,6 +2115,199 @@ h3 {
   text-transform: capitalize;
   font-family: "Nothing You Could Do", cursive;
 }
+
+/* hrader */
+
+/* Ensure header is fixed at the top */
+.header-area {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+  background-color: #fff; /* Adjust background color as needed */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow for better visibility */
+}
+
+/* Style for the main header area */
+.main-header-area {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd; /* Adjust the border as needed */
+}
+
+/* Ensure container is centered and has padding */
+.container-fluid {
+  padding: 0 15px;
+}
+
+/* Responsive design for logo and menu */
+.logo img {
+  max-width: 100%;
+  margin-top: -21px;
+
+
+}
+
+/* responsive icon D/U */
+.icon-container {
+  display: flex;
+  justify-content: flex-end; /* Align items to the far right */
+  gap: 10px; /* Add space between the icons */
+  padding-right: 15px; /* Optional: Adjust right padding */
+  width: 100%; /* Ensure full width of container */
+}
+
+.icon-container a {
+  text-decoration: none;
+  color: #000; /* Set icon color */
+  font-size: 18px; /* Adjust icon size */
+}
+
+.icon-container a:hover {
+  color: #007bff; /* Change color on hover */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .icon-container {
+    padding-right: 10px;
+  }
+
+  .icon-container a {
+    font-size: 16px; /* Slightly smaller icons on smaller screens */
+  }
+}
+
+@media (max-width: 576px) {
+  .icon-container {
+    padding-right: 5px;
+  }
+
+  .icon-container a {
+    font-size: 14px; /* Smaller icons on mobile */
+  }
+}
+
+
+
+
+/* Main menu styling */
+.main-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-menu nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.main-menu nav ul li {
+  margin: 0 15px;
+}
+
+.main-menu nav ul li a {
+  text-decoration: none;
+  color: #333; /* Adjust text color as needed */
+  font-size: 16px; /* Adjust font size as needed */
+}
+
+.main-menu nav ul li.active a {
+  font-weight: bold;
+  color: #007bff; /* Highlight color for active link */
+}
+
+/* Responsive design for social links */
+.social_wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social_wrap .social_links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.social_wrap .social_links ul li {
+  margin-left: 15px;
+}
+
+.social_wrap .social_links ul li a {
+  color: #333; /* Adjust icon color as needed */
+  font-size: 20px; /* Adjust icon size as needed */
+}
+
+/* Show social links only on larger screens */
+.d-none.d-xl-block {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .d-none.d-xl-block {
+      display: block;
+  }
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 991px) {
+  .main-menu {
+      display: none; /* Hide menu on small screens */
+  }
+
+  .social_wrap {
+      justify-content: center;
+  }
+
+  .social_links ul {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+  }
+
+  .social_links ul li {
+      margin-left: 10px;
+  }
+}
+
+@media (max-width: 767px) {
+  .header_bottom_border {
+      padding: 10px 15px;
+  }
+
+  .main-menu nav ul {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .main-menu nav ul li {
+      margin: 10px 0;
+  }
+
+  .social_wrap {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .social_links ul {
+      flex-direction: column;
+  }
+}
+
+
+/* end */
+
+
+
+
+
+
+
 
 @media (max-width: 767px) {
   /* line 37, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_bradcam.scss */
@@ -3574,6 +3787,7 @@ h3 {
   font-size: 27px;
   font-weight: 600;
   margin-bottom: 20px;
+  color: #FFB200;
 }
 
 /* line 53, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_contact.scss */
@@ -3588,7 +3802,7 @@ h3 {
 
 /* line 61, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_contact.scss */
 .form-contact .form-control {
-  border: 1px solid #e5e6e9;
+  border: 1px solid  #EB5B00;
   border-radius: 0px;
   height: 48px;
   padding-left: 18px;
@@ -5514,6 +5728,7 @@ h6 {
   /* line 529, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_blog.scss */
   .blog_details {
     padding: 60px 30px 35px 35px;
+    
   }
 }
 
@@ -6673,185 +6888,93 @@ h6 {
 .overlay {
   z-index: 9999; /* Ensure it's above other content */
   background-color: rgba(0, 0, 0, 0.6); /* Add semi-transparent background */
-  z-index: 9999; /* Ensure it's above other content */
+  z-index: auto; /* Ensure it's above other content */
   display: flex;
 
 }
 
-.wrapper {
- 
-  width: 100%;
-  max-width: 400px;
-  padding: 51px;
-  border-radius: 8px;
-  margin-left: 32vw;
-
-}
 
 /* Add your existing styles */
+/* Wrapper for form */
+/* Wrapper for form */
+/* Wrapper for form */
 .wrapper {
-  display: flow-root;
-  justify-content: center;
-  align-items: center;
-  min-height: 74vh;
+  margin-top: 50px;
 }
 
 .box {
-  padding: 20px;
+  max-width: 500px; /* Limit the max width of the form */
+  margin: auto; /* Center the form horizontally */
+  padding: 20px; /* Add padding around the form */
+  border: 1px solid #ccc; /* Add border */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+}
+
+.role-selection {
+  position: relative; /* For positioning the dropdown */
+  margin-bottom: 15px; /* Space below the role selection */
+}
+
+.role-dropdown {
   background: white;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  width: 300px;
-  text-align: center;
-}
-
-h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-input {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
   border: 1px solid #ccc;
-}
-
-#submit {
-  width: 100%;
+  position: absolute; /* Position it below the button */
+  z-index: 100; /* Ensure it appears above other elements */
   padding: 10px;
-  background-color:#FABC3F;
-  color: white;
-  border: none;
-  cursor: pointer;
+  margin-top: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-#submit:hover {
-  background-color: #E85C0D ;
+.role-dropdown label {
+  display: block; /* Stack radio buttons vertically */
+  cursor: pointer; /* Change cursor to pointer */
 }
 
-.register {
-  display: block;
-  margin-top: 15px;
-  text-decoration: none;
-  color: #E85C0D;
-  cursor: pointer;
+input[type="submit"] {
+  width: 100%; /* Full width for submit button */
 }
 
-.register:hover {
-  color: #FABC3F;
-}
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .box {
+    padding: 15px; /* Reduce padding on smaller screens */
+  }
 
-.forgot-password {
-  display: block;
-  margin-top: 10px;
-  text-decoration: none;
-  color:  #FABC3F;
-  
-}
-#span  span{
-   color: red ;
+  .role-selection button {
+    width: 100%; /* Full-width button on smaller screens */
+  }
 
-}
-.forgot-password:hover{
-  color:   #E85C0D;
-}
-/* form */
+  .role-dropdown {
+    width: 100%; /* Full-width dropdown */
+  }
 
-.registration-form{
-	padding: 50px 0;
-}
+  .form-control {
+    width: 100%; /* Full-width inputs */
+    margin-bottom: 15px; /* Space between inputs */
+  }
 
-.registration-form form{
-  background-color: #fff;
-  max-width: 600px;
-  margin: auto;
-  padding: 50px 70px;
-  border-top-left-radius: 26px;
-  border-top-right-radius: 196px;
-}
-#save{
-  margin-top: -4px;
-}
+  .row > .col {
+    flex: 1; /* Allow columns to grow equally */
+  }
 
-.registration-form .form-icon{
-	text-align: center;
-    background-color: #5891ff;
-    border-radius: 50%;
-    font-size: 40px;
-    color: white;
-    width: 100px;
-    height: 100px;
-    margin: auto;
-    margin-bottom: 50px;
-    line-height: 100px;
-}
+  .row {
+    display: flex;
+    flex-wrap: wrap; /* Wrap columns on smaller screens */
+  }
 
-.registration-form .item{
-	border-radius: 20px;
-    margin-bottom: 25px;
-    padding: 10px 20px;
-}
-
-.registration-form .create-account{
-    border-radius: 30px;
-    padding: 10px 20px;
-    font-size: 18px;
-    font-weight: bold;
-    background-color: #5791ff;
-    border: none;
-    color: white;
-    margin-top: 20px;
-}
-
-.registration-form .social-media{
-    max-width: 600px;
-    background-color: #fff;
-    margin: auto;
-    padding: 35px 0;
-    text-align: center;
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
-    color: #9fadca;
-    border-top: 1px solid #dee9ff;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
-}
-
-.registration-form .social-icons{
-    margin-top: 30px;
-    margin-bottom: 16px;
-}
-
-.registration-form .social-icons a{
-    font-size: 23px;
-    margin: 0 3px;
-    color: #5691ff;
-    border: 1px solid;
-    border-radius: 50%;
-    width: 45px;
-    display: inline-block;
-    height: 45px;
-    text-align: center;
-    background-color: #fff;
-    line-height: 45px;
-}
-
-.registration-form .social-icons a:hover{
-    text-decoration: none;
-    opacity: 0.6;
+  .row > .col:not(:last-child) {
+    margin-right: 10px; /* Margin between columns */
+  }
 }
 
 @media (max-width: 576px) {
-    .registration-form form{
-        padding: 50px 20px;
-    }
-
-    .registration-form .form-icon{
-        width: 70px;
-        height: 70px;
-        font-size: 30px;
-        line-height: 70px;
-    }
+  .row > .col {
+    flex: 100%; /* Stack columns on very small screens */
+  }
 }
 
+#mag{
+  margin-top: 190px;
+}
 

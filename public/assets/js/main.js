@@ -1,6 +1,6 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap';
+import 'bootstrap'; // Make sure to import Bootstrap JS
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { createApp } from 'vue';
 import App from './App.vue'; // Ensure this path is correct
