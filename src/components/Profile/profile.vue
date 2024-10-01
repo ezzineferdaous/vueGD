@@ -7,29 +7,37 @@
           
           <div class="col-md-6">
             <label for="name" class="form-label">Name:</label>
-            <input type="text" class="form-control" v-model="profile.name" id="name" />
+            <input type="text" class="form-control" v-model="profile.nom" id="name" />
+          </div>
+          <div class="col-md-6">
+            <label for="prenom" class="form-label">Prenom:</label>
+            <input type="text" class="form-control" v-model="profile.prenom" id="prenom" />
           </div>
         </div>
+       
         <div class="row mb-3">
           <div class="col-md-6">
-            <label for="password" class="form-label">Password:</label>
-            <input type="password" class="form-control" v-model="profile.password" id="password" />
-          </div>
-          <div class="col-md-6">
-            <label for="password" class="form-label">Confirmation password:</label>
-            <input type="password" class="form-control" v-model="profile.password" id="password" />
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label for="numero" class="form-label">Numero:</label>
-            <input type="text" class="form-control" v-model="profile.numero" id="numero" />
-          </div>
+        <label for="email" class="form-label">Email:</label>
+        <input type="email" class="form-control" v-model="profile.email" id="email" disabled/>
+      </div>
           <div class="col-md-6">
             <label for="date_naissance" class="form-label">Date of Birth:</label>
             <input type="date" class="form-control" v-model="profile.date_naissance" id="date_naissance" />
           </div>
         </div>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="numero" class="form-label">Numero:</label>
+            <input type="text" class="form-control" v-model="profile.tel" id="numero" />
+          </div>
+          <div class="col-md-6">
+            <label for="password" class="form-label">Password:</label>
+            <input type="password" class="form-control" v-model="profile.password" id="password" />
+          </div>
+              
+        </div>
+        
+
         <button type="submit" class="btn btn-warning w-100 mb-5">update</button>
       </form>
   
@@ -38,33 +46,28 @@
       <table class="table table-bordered table-striped">
         <thead class="table-dark">
           <tr>
-            <th>ID Res</th>
-            <th>User ID</th>
-            <th>Volle ID</th>
-            <th>Date Res</th>
+            <th>ID Reservation</th>
+           
+            <th>City</th>
+            <th>Destination</th>
+            <th>Date Reserved</th>
+            <th>Price</th>
             <th>Details</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>101</td>
-            <td>501</td>
-            <td>2024-09-22</td>
+          <tr v-for="r in res" :key="r.id">
+            <td>{{r.id}}</td>
+           
+            <td>{{r.vole.ville}}</td>
+            <td>{{r.vole.destination.nom}}</td>
+            <td>{{ r.Date_res }}</td>
+            <td>{{ r.vole.prix }}</td>
             <td>
-              <a href="/Gallry" class="icon-link">
+              <a class="icon-link">
+                <router-link :to="{ name: 'Gallry', params: { id: r.vole_id } }">
                 <i class="fa-solid fa-circle-info icon"></i>
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>102</td>
-            <td>502</td>
-            <td>2024-09-28</td>
-            <td>
-              <a href="/Gallry" class="icon-link">
-                <i class="fa-solid fa-circle-info icon"></i>
+              </router-link>
               </a>
             </td>
           </tr>
@@ -77,59 +80,152 @@
         <thead class="table-dark">
           <tr>
             <th>ID</th>
-            <th>User </th>
-            <th>Destination </th>
+            <th>Destination</th>
+            <th>City</th>
+            <th>Date</th>
             <th>Comment</th>
-           
+            <th>Details</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>101</td>
-            <td>555</td>
-          
-            <td>Great destination!</td>
-  
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>102</td>
-            <td>556</td>
-          
-            <td>Had a nice time!</td>
-            
+          <tr v-for="comment in comments" :key="comment.id">
+            <td>{{ comment.id }}</td>
+            <td>{{comment.vole.destination.nom}}</td>
+            <td>{{comment.vole.ville}}</td>
+            <td>{{comment.date_comm}}</td>
+            <td>{{comment.message}}</td>
+            <td>
+              <a class="icon-link">
+                <router-link :to="{ name: 'Gallry', params: { id: comment.vole_id } }">
+                <i class="fa-solid fa-circle-info icon"></i>
+              </router-link>
+              </a>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
 </div>
+
+ <!-- Confermation Modal -->
+ <div v-if="showModal" class="modal" tabindex="-1" style="display: block; background-color: rgba(0,0,0,0.5)" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Confirm Update</h5>
+  
+            </div>
+            <div class="modal-body">
+              <p>Your personal information has been modified successfully.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" @click="closeDeleteModal">OK</button>
+            </div>
+          </div>
+        </div>
+      </div>
   </template>
   
   <script>
+  import axios from 'axios';
   export default {
     data() {
       return {
+        showModal : false,
+        user:[],
         profile: {
           id: '',
-          name: '',
+          nom: '',
+          prenom :'',
           password: '',
-          role_id: '',
-          numero: '',
+          email: '',
+          tel: '',
           date_naissance: ''
         },
-        reservations: [
-          { id_res: 1, id_user: 101, id_volle: 202, date_res: '2023-09-01' },
-          { id_res: 2, id_user: 102, id_volle: 203, date_res: '2023-09-02' }
-          // Add more reservations here
-        ]
+        res: [],
+        comments:[],
+        
       };
     },
+    mounted(){
+      this.isUser();
+      this.fetchUser();
+      this.fetchRes();
+      this.fetchComments();
+    },
     methods: {
+      isUser(){
+            const user = JSON.parse(localStorage.getItem('user'));
+            this.user = user
+        },
+        closeDeleteModal(){
+          this.showModal = false;
+        },
       submitForm() {
-        // Handle form submission logic here
-        console.log(this.profile);
+        const utilisateurData = {
+        nom: this.profile.nom,
+        prenom: this.profile.prenom,
+        email: this.profile.email,
+        tel: this.profile.tel,
+        date_naissance: this.profile.date_naissance,
+      };
+      // Add password only if it's filled in
+  if (this.profile.password) {
+    utilisateurData.password = this.profile.password;
+  }
+      axios.put(`http://localhost:8000/api/user/${this.user.id}`, utilisateurData)
+        .then(response => {
+          this.profile = response.data;
+          this.profile.password ='';
+          this.showModal = true;
+          //this.fetchUser();
+          console.log(' fetching USER Updating with Succes:', this.profile);
+        })
+        .catch(error => {
+          console.error('There was an  on Update User error!', error);
+        });
+      },
+      fetchUser(){
+        axios.get(`http://localhost:8000/api/user/${this.user.id}`)
+        .then(response => {
+          this.profile = response.data;
+          this.profile.password ='';
+          //this.fetchUser();
+          console.log(' fetching USER Updating with Succes:', this.profile);
+        })
+        .catch(error => {
+          console.error('There was an  on Update User error!', error);
+        });
+      },
+      fetchComments() {
+      try {
+        axios.get(`http://localhost:8000/api/commentaire/user/${this.user.id}`)
+        .then(response=> {
+            // Store the fetched data
+            this.comments = response.data;
+            console.log(' fetching comment with Succes:', this.comments);
+
+      });
+        
+      } catch (error) {
+        console.error('Error fetching comment details:', error);
       }
+    },
+    fetchRes() {
+      try {
+        axios.get(`http://localhost:8000/api/reserves/user/${this.user.id}`)
+        .then(response=> {
+            // Store the fetched data
+            this.res = response.data;
+            console.log(' fetching reservation with Succes:', this.res);
+
+      });
+        
+      } catch (error) {
+        console.error('Error fetching reservation details:', error);
+      }
+    },
+    
     }
   };
   </script>

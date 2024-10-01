@@ -43,13 +43,13 @@
 </div>
 
                     <br>
-                    <div class="filter_result_wrap">
+                    <div v-if="isAuthenticated" class="filter_result_wrap">
                         <h3>Destination</h3>
                         <div class="filter_bordered">
     <div class="filter_inner">
         <div class="row">
             <div class="col-lg-12">
-                <form @submit.prevent="submitFormDest">
+              <form @submit.prevent="submitFormDest">
                     <div class="form-group">
                         <label for="destinationInput">Destination</label>
                         <div class="mb-3">
@@ -63,9 +63,32 @@
                             />
                         </div>
                     </div>
-                    <div class="reset_btn">
+                    <div  class="reset_btn">
                         <button class="boxed-btn4" type="submit">ADD</button>
                     </div>
+                    <div class="mt-4">
+                    <table class="table table-hover">
+  <thead>
+    <tr >
+      <th scope="col">ID</th>
+      <th scope="col">Destination</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="destination in destinations" :key="destination.id">
+      <td>{{ destination.id }}</td>
+          <td>{{ destination.nom }}</td>
+      <td><a @click="deleteDestination(destination.id)" id="trash">
+              <i class="fa fa-trash"></i>
+            </a></td>
+    </tr>
+    
+  </tbody>
+</table>
+</div>
+
+
                 </form>
             </div>
         </div>
@@ -76,7 +99,7 @@
                 <div class="col-lg-8">
                     <div class="row">
                          <!--  button add  -->
-                <div class="container mt-3 mb-3">
+                <div v-if="isAuthenticated" class="container mt-3 mb-3">
                     <button type="button" class="btn btn-primary" id="button" @click="showModal">
                          Add
                          </button>
@@ -96,15 +119,15 @@
           <!-- Icons for Update and Delete -->
       
             <!-- Update Button -->
-            <a @click="openUpdateModal(volle)" id="pencil">
+            <a v-if="isAuthenticated" @click="openUpdateModal(volle)" id="pencil">
               <i class="fa fa-pencil"></i>
             </a>
             <!-- Delete Button -->
-            <a @click="openDeleteModal(volle.id)" id="trash">
+            <a v-if="isAuthenticated" @click="openDeleteModal(volle.id)" id="trash">
               <i class="fa fa-trash"></i>
             </a>
           <div class="place_info">
-              <router-link :to="{ name: 'Gallry', params: { id: volle.id } }">
+            <router-link :to="{ name: 'Gallry', params: { id: volle.id } }">
                 <h3>{{ volle.ville }}</h3>
               </router-link>
             <p>{{ volle.description }}</p>
@@ -202,18 +225,20 @@
                 <textarea class="form-control" v-model="volle.description" rows="3" placeholder="Enter Description" required></textarea>
               </div>
               <div class="form-group">
+                <label for=""> Date Debut</label>
                 <input type="date" class="form-control" v-model="volle.du" placeholder="Du" required />
               </div>
               <div class="form-group">
+                <label for=""> Date Fin</label>
                 <input type="date" class="form-control" v-model="volle.au" placeholder="Au" required />
               </div>
               <div class="form-group">
                 <input type="number" class="form-control" v-model="volle.prix" placeholder="Enter Prix" required />
               </div>
-              <!-- Image Upload -->
+              <!-- Image Upload 
               <div class="form-group">
                     <input type="file" class="form-control" @change="onFileChange" />
-                </div>
+                </div>-->
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" @click="closeUpdateModal">Cancel</button>
                 <button type="submit" class="btn btn-primary">Update</button>
@@ -295,6 +320,7 @@ export default {
       voles: [],
       selectedDestination: '',  // Variable to bind selected destination
       imageUrl: null,
+      user:[],
     };
   },
   computed: {
@@ -308,8 +334,18 @@ export default {
         (volle) => volle.destination_id === parseInt(this.selectedDestination)
       );
     },
+    // Check if user is authenticated
+    isAuthenticated() {
+        //const user = JSON.parse(localStorage.getItem('user'));
+      //return user && user.token; // If there's a user and token, user is authenticated
+      return this.user != null && this.user.role_id == 1;
+    },
   },
   methods: {
+    isUser(){
+            const user = JSON.parse(localStorage.getItem('user'));
+            this.user = user
+        },
     /*handleImageUpload(event) {
         this.image = event.target.files[0];
      },*/
@@ -503,6 +539,16 @@ export default {
           console.error('Error deleting volle:', error);
         });
     },
+    deleteDestination(id){
+      axios
+        .delete(`http://localhost:8000/api/destination/${id}`)
+        .then(() => {
+          this.destinations = this.destinations.filter(v => v.id !== id);
+        })
+        .catch(error => {
+          console.error('Error deleting destination:', error);
+        });
+    },
     submitForm(){
       const volledata = {
       ville: this.volle.ville,
@@ -530,6 +576,7 @@ export default {
   mounted() {
     this.fetchVoles();
     this.fetchDestinations();
+    this.isUser();
   }
 };
 </script>

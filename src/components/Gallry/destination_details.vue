@@ -17,15 +17,21 @@
                         <p>{{ voleDetails.description }}</p>
                     </div>
                     <div class="col-lg-12 contact_join"  >
-                        <div class="submit_btn" v-if="isAuthenticated">
+                        <div class="submit_btn" v-if="isAuthenticated && !isArchived">
                             <button class="boxed-btn4" type="submit" @click="handleReservationClick()" >Reservation</button>
                          </div>
                      </div>
                     <div class="bordered_1px"></div>
-
-
+                    <div class="container">
+                    <h3>Comment</h3>
+                    <div v-for="comment in comments" :key="comment.id">
+                      <h4 class="ml-3"><u>{{ comment.utilisateur.nom }}</u></h4>
+                      <p class="mb-5 ml-5">{{ comment.message }}</p>
+                    </div>
+                    </div>
+                     
+                    </div>
                     <div class="contact_join" v-if="isAuthenticated">
-                        <h3>Comment</h3>
                         <form @submit.prevent="submitComment">
                             <div class="row">
                                 <div class="col-lg-12">
@@ -46,7 +52,6 @@
                 </div>
             </div>
         </div>
-    </div>
 
     <!-- newletter_area_start  -->
     <div class="newletter_area overlay">
@@ -164,6 +169,7 @@ export default{
       user:[],
       message: '',
       voles: [], // Array to hold the voles data
+      comments: [],
     }
     },
     mounted() {
@@ -172,6 +178,7 @@ export default{
     this.fetchVoleDetails();
     this.isUser();
     this.fetchVoles(); // Fetch the voles when the component is mounted
+    this.fetchComments();
   },computed: {
     // Check if user is authenticated
     isAuthenticated() {
@@ -179,7 +186,11 @@ export default{
       //return user && user.token; // If there's a user and token, user is authenticated
       return this.user != null && this.user.role_id == 2;
     },
-   
+    isArchived() {
+        const today = new Date();
+        const endDate = new Date(this.voleDetails.au); // Assuming vole.au is the end date
+        return endDate < today; // True if the vol is archived
+    },
   },
     methods:{
         isUser(){
@@ -198,6 +209,20 @@ export default{
         
       } catch (error) {
         console.error('Error fetching vole details:', error);
+      }
+    },
+    fetchComments() {
+      try {
+        axios.get(`http://localhost:8000/api/commentaire/vol/${this.voleId}`)
+        .then(response=> {
+            // Store the fetched data
+            this.comments = response.data;
+            console.log(' fetching comment with Succes:', this.comments);
+
+      });
+        
+      } catch (error) {
+        console.error('Error fetching comment details:', error);
       }
     },
     handleReservationClick() {
@@ -246,6 +271,7 @@ export default{
       .then(response => {
         // Handle successful response
         console.log('Comment added:', response.data);
+        this.fetchComments();
         this.message = ''; // Clear the textarea
       })
       .catch(error => {

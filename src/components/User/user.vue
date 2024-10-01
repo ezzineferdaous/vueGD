@@ -9,13 +9,10 @@
         </button>
 
         <!-- Role Selection Dropdown -->
-        <div class="role-filter">
-          <label for="roleFilter" class="form-label">Filter by Role: </label>
-          <select class="form-select" v-model="selectedRole" @change="filterByRole" id="roleFilter">
-            <option value="">All</option>
-            <option value="admin">Admin</option>
-            <option value="user">User</option>
-          </select>
+        <div class="role-filter" >
+          <button type="button" class="btn btn-primary" id="button" @click="openRoleModal">
+          Roles
+        </button>
         </div>
       </div>
 
@@ -117,6 +114,50 @@
           </div>
         </div>
       </div>
+
+       <!-- Role Modal -->
+       <div v-if="showRoleModal" class="modal show" tabindex="-1" style="display: block; background-color: rgba(0,0,0,0.5)" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body">
+              <form @submit.prevent="submitFormRole">
+                <h5 class="modal-title">Role</h5>
+                <div class="mb-3">
+                  <div style="display: flex;flex-wrap: wrap;">
+                  <input type="text" class="form-control" style="width: 80%;" v-model="role_nom" placeholder="Enter Role" required>
+                  <i @click="RoleAdd" class="fa fa-plus ml-5 mt-2" id="plus"></i>
+                </div>
+                <div class="mt-4">
+                    <table class="table table-hover">
+  <thead>
+    <tr >
+      <th scope="col">ID</th>
+      <th scope="col">Role</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="role in roles" :key="role.id">
+      <td>{{ role.id }}</td>
+          <td>{{ role.nom }}</td>
+      <td><a @click="deleteRole(role.id)" id="trash">
+              <i class="fa fa-trash"></i>
+            </a></td>
+    </tr>
+    
+  </tbody>
+</table>
+</div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" @click="closeRoleModal">Close</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -127,6 +168,7 @@ export default {
   data() {
     return {
       showModal: false,
+      showRoleModal: false,
       showDeleteModal: false,
       isEdit: false,
       utilisateurs: [],
@@ -140,6 +182,7 @@ export default {
         tel: '',
         date_naissance: '',
       },
+      role_nom:'',
       utilisateurIdToDelete: null,
       selectedRole: '', // New state for filtering by role
     };
@@ -187,6 +230,18 @@ export default {
           this.closeModal();
         });
     },
+    RoleAdd() {
+      axios.post('http://localhost:8000/api/roles', {
+      nom: this.role_nom // Wrap it as an object with key 'nom'
+    })
+        .then(response => {
+          this.roles.push(response.data);
+          this.fetchRoles();
+        })
+        .catch(error => {
+      console.error('Error adding role:', error);
+    });
+    },
     updateUtilisateur() {
       const utilisateurData = {
         nom: this.utilisateur.nom,
@@ -215,6 +270,17 @@ export default {
           this.closeDeleteModal();
         });
     },
+    deleteRole(id) {
+      axios
+        .delete(`http://localhost:8000/api/roles/${id}`)
+        .then(() => {
+          this.roles = this.roles.filter(v => v.id !== id);
+          this.fetchRoles();
+        })
+        .catch(error => {
+          console.error('Error deleting volle:', error);
+        });
+    },
     openAddModal() {
       this.showModal = true;
       this.isEdit = false;
@@ -228,6 +294,13 @@ export default {
         date_naissance: '',
       };
     },
+    openRoleModal() {
+      this.showRoleModal = true;
+     role_nom = '';
+    },
+    closeRoleModal() {
+      this.showRoleModal = false;
+    },
     openUpdateModal(utilisateur) {
       this.showModal = true;
       this.isEdit = true;
@@ -237,6 +310,7 @@ export default {
       this.showDeleteModal = true;
       this.utilisateurIdToDelete = id;
     },
+
     closeModal() {
       this.showModal = false;
     },
@@ -247,10 +321,14 @@ export default {
       const role = this.roles.find(r => r.id === roleId);
       return role ? role.nom : 'Unknown';
     },
-    filterByRole() {
-      // The computed property will handle filtering automatically
-    },
+    
   },
 };
 </script>
 
+<style>
+#plus{
+  color: #e85c0d;
+  cursor: pointer;
+}
+</style>

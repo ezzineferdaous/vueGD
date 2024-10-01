@@ -37,7 +37,7 @@
               <li class="nav-item">
                 <router-link to="/Contact" class="nav-link">Contact</router-link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item"  v-if="isClient">
                 <router-link to="/Profile" class="nav-link">Profile</router-link>
               </li>
             </ul>
@@ -47,10 +47,9 @@
               <router-link v-if="isAuthenticated" to="/" @click.prevent="logout" class="btn btn-outline-danger me-2">Log out</router-link>
               <div class="social_links d-none d-lg-block">
                 <ul class="list-unstyled d-flex">
-                  <li class="me-3"><a href="https://www.instagram.com"><i class="fa fa-instagram"></i></a></li>
-                  <li class="me-3"><a href="https://www.linkedin.com/in/ferdaous-ezzine-a3a659269/"><i class="fa fa-linkedin"></i></a></li>
-                  <li class="me-3"><a href="https://web.facebook.com/home.php"><i class="fa fa-facebook"></i></a></li>
-                  <li><a href="https://myaccount.google.com/?utm_source=OGB&utm_medium=app&pli=1&nlr=1"><i class="fa fa-google-plus"></i></a></li>
+                  <li class="me-3"><a href="https://www.instagram.com" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                  <li class="me-3"><a href="https://www.linkedin.com/in/ferdaous-ezzine-a3a659269/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                  <li class="me-3"><a href="https://web.facebook.com/home.php" target="_blank"><i class="fa fa-facebook"></i></a></li>
                 </ul>
               </div>
             </div>
@@ -73,6 +72,10 @@
       isAdmin() {
         const user = JSON.parse(localStorage.getItem('user'));
         return user && user.role_id === 1; // Assuming 1 is the admin role ID
+      },
+      isClient() {
+        const user = JSON.parse(localStorage.getItem('user'));
+        return user && user.role_id === 2; // Assuming 1 is the admin role ID
       }
     },
     methods: {

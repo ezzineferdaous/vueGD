@@ -7,8 +7,8 @@
                 <img class="d-block w-100" src="../../../assets/img/banner/banner.png" alt="Premier diaporama">
                 <!-- Contenu centré -->
                 <div class="carousel-caption d-flex flex-column justify-content-center align-items-center">
-                    <h3>ndonesia</h3>
-                    <p>Pixel perfect design with awesome contents</p>
+                    <h3>Indonesia</h3>
+                    <p>The natural wonders of the archipelago</p>
                     <a href="#" class="btn btn-primary" id="btn">Explorer maintenant</a>
                 </div>
             </div>
@@ -17,7 +17,7 @@
                 <!-- Contenu centré -->
                 <div class="carousel-caption d-flex flex-column justify-content-center align-items-center">
                     <h3>Désert</h3>
-                    <p>Découvrez la beauté du pays du bout du monde</p>
+                    <p>Journey Through the Desert</p>
                     <a href="#" class="btn btn-primary" id="btn">Explorer maintenant</a>
                 </div>
             </div>
@@ -25,8 +25,8 @@
                 <img class="d-block w-100" src="../../../assets/img/banner/banner4.png" alt="Troisième diaporama">
                 <!-- Contenu centré -->
                 <div class="carousel-caption d-flex flex-column justify-content-center align-items-center">
-                    <h3>Cappadoce</h3>
-                    <p>Découvrez les montagnes enneigées et la beauté pittoresque</p>
+                    <h3>Cappadocia</h3>
+                    <p>exploring Cappadocia's Unique Beauty</p>
                     <a href="#" class="btn btn-primary" id="btn">Explorer maintenant</a>
                 </div>
             </div>
@@ -58,64 +58,78 @@
     </div>
     <div class="row">
         <div class="col-lg-4 col-md-6">
+            <router-link to="/Destination" >
             <div class="single_destination">
+                
                 <div class="thumb">
                     <img src="../../../img/destination/1.png" alt="">
                 </div>
                 <div class="content">
-                    <p class="d-flex align-items-center">Italie <a href="travel_destination.html">  07 Lieux</a> </p>
+                    <p class="d-flex align-items-center">Italie  </p>
                 </div>
+            
             </div>
+        </router-link>
         </div>
         <div class="col-lg-4 col-md-6">
+            <router-link to="/Destination" >
             <div class="single_destination">
                 <div class="thumb">
                     <img src="../../../img/destination/2.png" alt="">
                 </div>
                 <div class="content">
-                    <p class="d-flex align-items-center">Brésil <a href="travel_destination.html">  03 Lieux</a> </p>
+                    <p class="d-flex align-items-center">Brésil</p>
                 </div>
             </div>
+        </router-link>
         </div>
         <div class="col-lg-4 col-md-6">
+            <router-link to="/Destination" >
             <div class="single_destination">
                 <div class="thumb">
                     <img src="../../../img/destination/3.png" alt="">
                 </div>
                 <div class="content">
-                    <p class="d-flex align-items-center">Australia <a href="travel_destination.html">  10 Lieux</a> </p>
+                    <p class="d-flex align-items-center">Australia </p>
                 </div>
             </div>
+        </router-link>
         </div>
         <div class="col-lg-4 col-md-6">
+            <router-link to="/Destination" >
             <div class="single_destination">
                 <div class="thumb">
                     <img src="../../../img/destination/4.png" alt="">
                 </div>
                 <div class="content">
-                    <p class="d-flex align-items-center">Népal <a href="travel_destination.html">  02 Lieux</a> </p>
+                    <p class="d-flex align-items-center">Népal </p>
                 </div>
             </div>
+        </router-link>
         </div>
         <div class="col-lg-4 col-md-6">
+            <router-link to="/Destination" >
             <div class="single_destination">
                 <div class="thumb">
                     <img src="../../../img/destination/5.png" alt="">
                 </div>
                 <div class="content">
-                    <p class="d-flex align-items-center">Marocoo<a href="travel_destination.html">  02 Lieux</a> </p>
+                    <p class="d-flex align-items-center">Marocoo</p>
                 </div>
             </div>
+        </router-link>
         </div>
         <div class="col-lg-4 col-md-6">
+            <router-link to="/Destination" >
             <div class="single_destination">
                 <div class="thumb">
                     <img src="../../../img/destination/6.png" alt="">
                 </div>
                 <div class="content">
-                    <p class="d-flex align-items-center">Indonésie <a href="travel_destination.html">  05 Lieux</a> </p>
+                    <p class="d-flex align-items-center">Indonésie </p>
                 </div>
             </div>
+        </router-link>
         </div>
     </div>
 </div>

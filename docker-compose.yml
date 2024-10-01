@@ -1,0 +1,22 @@
+version: '3.8'  # Specify the version of Docker Compose
+
+services:
+  app:
+    image: php:8.3-apache
+    container_name: vueHTML_app  # Unique container name for the "app" service
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+      - ./000-default.conf:/etc/apache2/sites-available/000-default.conf
+    ports:
+      - "5173:80"  # Map port 80 inside the container to port 5173 on the host
+    networks:
+      - travlco_network
+    command: /bin/bash -c "apache2-foreground"  # Start Apache in the foreground
+
+networks:
+  travlco_network:
+    name: travlco_network
+
+volumes:
+  travlco_data:  # Defined but not used in this service

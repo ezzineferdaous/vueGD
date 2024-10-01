@@ -38,7 +38,7 @@ const router = createRouter({
       component: DestinationView
     },
     {
-      path: '/Gallry',
+      path: '/Gallry/:id',
       name: 'Gallry',
       component: GallryView
     },

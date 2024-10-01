@@ -109,12 +109,18 @@ export default {
         localStorage.setItem('user', JSON.stringify(response.data.user));
 
         // Show alert message
-        alert(response.data.message);
+      
 
         this.$router.push({ name: 'home' }); // Redirect after successful login or register
       } catch (error) {
         console.error('Error:', error.response.data);
-        alert(error.response.data.message || 'An error occurred'); // Show error message
+        // Check for invalid credentials
+    if (error.response && error.response.status === 401) {
+      alert('Incorrect password or email. Please try again.');
+    } else {
+      alert('An error occurred. Please try again.');
+    }
+       
       }
     },
   },
