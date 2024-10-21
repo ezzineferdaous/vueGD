@@ -8,12 +8,7 @@
           Ajouter
         </button>
 
-        <!-- Role Selection Dropdown -->
-        <div class="role-filter" >
-          <button type="button" class="btn btn-primary" id="button" @click="openRoleModal">
-          Roles
-        </button>
-        </div>
+        
       </div>
 
       <!-- Table -->
@@ -42,6 +37,7 @@
             <td>{{ utilisateur.tel }}</td>
             <td>{{ utilisateur.date_naissance }}</td>
             <td>
+              <!-- modifier les détails de l'utilisateur. -->
               <a @click="openUpdateModal(utilisateur)"> <i class="fa fa-pencil" id="pencili"></i></a>
               <a @click="openDeleteModal(utilisateur.id)"> <i class="fa fa-trash" id="trashh"></i></a>
             </td>
@@ -55,7 +51,7 @@
           <div class="modal-content">
             <div class="modal-body">
               <form @submit.prevent="submitForm">
-                <h5 class="modal-title">{{ isEdit ? 'Update Utilisateur' : 'Add Utilisateur' }}</h5>
+                <h5 class="modal-title">{{ isEdit ? 'Update Utilisateur' : 'dd' }}</h5>
                 <div class="mb-3">
                   <label for="nom" class="form-label">Nom</label>
                   <input type="text" class="form-control" v-model="utilisateur.nom" placeholder="Enter Nom" required>
@@ -95,6 +91,7 @@
           </div>
         </div>
       </div>
+      <h5 class="modal-title">{{ isEdit ? 'Update Utilisateur' : 'dd' }}</h5>
 
       <!-- Delete Modal -->
       <div v-if="showDeleteModal" class="modal" tabindex="-1" style="display: block; background-color: rgba(0,0,0,0.5)" role="dialog">
@@ -192,8 +189,8 @@ export default {
     this.fetchRoles();
   },
   computed: {
+    // filtrer dynamiquement la liste des utilisateurs 
     filteredUtilisateurs() {
-      // Filter utilisateurs based on selected role
       if (this.selectedRole) {
         return this.utilisateurs.filter(utilisateur => {
           const roleName = this.getRoleName(utilisateur.role_id);

@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
-import ContactView from '../views/ContactView.vue'
-import DestinationView from '../views/DestinationView.vue'
-import GallryView from '../views/GallryView.vue'
+import categoryView from '../views/categoryView.vue'
+import DocumentView from '../views/DocumentView.vue'
 import UserView from '../views/UserView.vue'
-import AdminView from '../views/AdminView.vue'
+import permissionView from '../views/permissionView.vue'
 import LoginView from '../views/LoginView.vue'
+
 import ProfileView from '../views/ProfileView.vue'
 
 const router = createRouter({
@@ -27,20 +27,16 @@ const router = createRouter({
     },
    
    
+    
     {
-      path: '/contact',
-      name: 'contact',
-      component: ContactView
+      path: '/category',
+      name: 'category',
+      component: categoryView
     },
     {
-      path: '/Destination',
-      name: 'Destination',
-      component: DestinationView
-    },
-    {
-      path: '/Gallry/:id',
-      name: 'Gallry',
-      component: GallryView
+      path: '/workshop',
+      name: 'document',
+      component: DocumentView
     },
     {
       path: '/User',
@@ -48,21 +44,20 @@ const router = createRouter({
       component: UserView
     },
     {
-      path: '/Admin',
-      name: 'Admin',
-      component: AdminView
+      path: '/permission',
+      name: 'permission',
+      component: permissionView
     },{
       path: '/Profile',
       name: 'Profile',
       component: ProfileView
     },
+
     {
       path: '/Login',
       name: 'Login',
-      component: LoginView
+      component: LoginView,
     },
-    
-
    
   ]
 })

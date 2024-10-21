@@ -2908,7 +2908,7 @@ h3 {
 }
 
 /* line 8, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_destination.scss */
-.popular_destination_area .single_destination {
+.popular__area .single_destination {
   position: relative;
   margin-bottom: 30px;
   border-radius: 5px;

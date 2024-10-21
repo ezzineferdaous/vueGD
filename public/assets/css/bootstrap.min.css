@@ -231,6 +231,7 @@ img {
     vertical-align: middle;
     border-style: none;
     margin-top: -48px;
+    height: 111px;
 }
 
 svg:not(:root) {
@@ -241,6 +242,36 @@ table {
     border-collapse: collapse
 }
 
+#login {
+    margin-left: auto; /* Pushes the login section to the far right */
+    display: flex;
+    align-items: center;
+  }
+  
+  .social_links ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .social_links ul li {
+    margin-right: 15px;
+  }
+  
+  .social_links ul li a {
+    color: #000;
+    font-size: 18px;
+  }
+  
+  .social_links ul li a:hover {
+    color: #007bff; /* Change color on hover */
+  }
+  
+  .btn-outline-primary,
+  .btn-outline-danger {
+    margin-right: 10px;
+  }
+  
 caption {
     padding-top: .75rem;
     padding-bottom: .75rem;
@@ -6465,7 +6496,7 @@ button.bg-danger:hover {
 }
 
 .bg-light {
-    background-color: #f8f9fa!important
+    background-color: gold ; 
 }
 
 a.bg-light:focus,
