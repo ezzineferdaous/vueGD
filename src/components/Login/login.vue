@@ -52,30 +52,26 @@ export default {
   },
   methods: {
     async login() {
-      try {
-        const response = await axios.post('http://localhost:8000/api/login', {
-          email: this.email,
-          password: this.password,
-        });
+  try {
+    const response = await axios.post('http://localhost:8000/api/login', {
+      email: this.email,
+      password: this.password,
+    });
+    console.log('Login response:', response.data); // Log the response
+    const { user, token } = response.data;
 
-        // Assuming your API returns the user data and token
-        const { user, token } = response.data;
+    // Store the token
+    localStorage.setItem('authToken', token);
+    this.$router.push('/'); // Redirect after successful login
+  } catch (error) {
+    if (error.response) {
+      this.errorMessage = error.response.data.message || 'Login failed. Please try again.';
+    } else {
+      this.errorMessage = 'Network error. Please try again later.';
+    }
+  }
+}
 
-        
-        // You can store the token in local storage or Vuex store for later use
-        localStorage.setItem('authToken', token);
-
-        // Optionally, redirect to another page after successful login
-        this.$router.push('/dashboard'); // Adjust the path as needed
-      } catch (error) {
-        // Handle login error
-        if (error.response) {
-          this.errorMessage = error.response.data.message || 'Login failed. Please try again.';
-        } else {
-          this.errorMessage = 'Network error. Please try again later.';
-        }
-      }
-    },
   },
 };
 </script>

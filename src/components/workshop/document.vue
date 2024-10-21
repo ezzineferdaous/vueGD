@@ -113,27 +113,29 @@ export default {
     this.fetchDocuments();
   },
   methods: {
+    
     async fetchDocuments() {
-      // try {
-      //   const token = localStorage.getItem('token');
-      //   if (!token) {
-      //     throw new Error('No authentication token found.');
-      //   }
-        
-        const response = await axios.get('http://localhost:8000/api/document');
-        this.documents = response.data;
-        console.log(' fetching documents:', this.documents);
-      // } catch (error) {
-      //   console.error('Error fetching documents:', error);
-      //   console.error('Response data:', error.response?.data || 'No response data');
-      //   if (error.response?.status === 401) {
-      //     alert('You are not authenticated. Please log in again.');
-      //     // Optionally, redirect to login page or perform a logout action
-      //   } else {
-      //     alert('Failed to fetch documents. Please try again.');
-      //   }
-      // }
-    },
+  try {
+    const token = localStorage.getItem('authToken'); // Retrieve the token from local storage
+    const response = await axios.get('http://localhost:8000/api/document', {
+      headers: {
+        Authorization: `Bearer ${token}` // Include the token in the Authorization header
+      }
+    });
+    this.documents = response.data;
+    console.log('Fetching documents:', this.documents);
+  } catch (error) {
+    console.error('Error fetching documents:', error);
+    if (error.response && error.response.status === 401) {
+      alert('Unauthorized access. Please log in.');
+      // Optionally redirect to login page
+      this.$router.push('/login'); // Adjust the path as needed
+    }
+  }
+
+
+},
+
     showAddDocumentModal() {
       this.showModal = true;
       this.resetForm();

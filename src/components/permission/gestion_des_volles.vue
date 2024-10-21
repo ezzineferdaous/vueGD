@@ -1,91 +1,89 @@
 <template>
   <div class="container mt-5">
+    <!-- Permissions Header -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h1 id="title"><u>Permissions</u></h1>
+      <button class="btn btn-primary" @click="openAddPermissionModal">Add Permission</button>
+    </div>
+
     <!-- Permissions Table -->
-    <h1 id="title"><u>Permissions</u></h1>
     <table class="table table-bordered table-striped">
       <thead class="table-dark">
         <tr>
-          <th>Username</th>
-          <th>Email</th>
-          <th>Password</th>
-          <th>Role ID</th>
-          <th>Telephone</th>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Description</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="user in permissions" :key="user.id">
-          <td>{{ user.username }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.password }}</td>
-          <td>{{ user.role_id }}</td>
-          <td>{{ user.tel }}</td>
+        <tr v-for="permission in permissions" :key="permission.id_permission">
+          <td>{{ permission.id_permission }}</td>
+          <td>{{ permission.name }}</td>
+          <td>{{ permission.description }}</td>
           <td>
-            <button class="btn btn-success btn-sm me-2" @click="assignRole(user)">
-              Assign
-            </button>
-            <button class="btn btn-danger btn-sm" @click="revokeRole(user)">
-              Revoke
-            </button>
+            <button class="btn btn-success btn-sm me-2" @click="openAssignPermissionModal(permission)">Assign</button>
+            <button class="btn btn-info btn-sm me-2" @click="openUpdatePermissionModal(permission)">Update</button>
+            <button class="btn btn-danger btn-sm" @click="deletePermission(permission.id_permission)">Delete</button>
           </td>
         </tr>
       </tbody>
     </table>
 
-    <!-- Role Modal (Optional: If you still need it) -->
+    <!-- Assign Permission Modal -->
     <div
-      v-if="showModal"
+      v-if="showAssignPermissionModal"
       class="modal show"
       tabindex="-1"
-      style="display: block; background-color: rgba(0,0,0,0.5); font-size: 14px;"
+      style="display: block; background-color: rgba(0, 0, 0, 0.5); font-size: 14px;"
       role="dialog"
     >
       <div class="modal-dialog">
-        <div
-          class="modal-content"
-          style="padding: 0;"
-        >
+        <div class="modal-content" style="padding: 0;">
           <div class="modal-body">
-            <h5 class="modal-title mb-5 mt-3">Clients</h5>
+            <h5 class="modal-title mb-5 mt-3">Assign Permission to User</h5>
             <div class="mb-3">
-              <div class="mt-4">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>First Name</th>
-                      <th>Last Name</th>
-                      <th>Date Reservation</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="client in selectedReservation.reservations"
-                      :key="client.id"
-                    >
-                      <td>{{ client.nom }}</td>
-                      <td>{{ client.prenom }}</td>
-                      <td>{{ client.date_reservation }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              <label for="userId">User ID</label>
+              <input type="number" class="form-control" v-model="userId" id="userId" required>
             </div>
             <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                @click="closeClientModel"
-              >
-                Close
-              </button>
+              <button type="button" class="btn btn-secondary" @click="closeAssignPermissionModal">Close</button>
+              <button type="button" class="btn btn-primary" @click="assignPermission">Assign Permission</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Permission Modal -->
+    <div
+      v-if="showAddPermissionModal"
+      class="modal show"
+      tabindex="-1"
+      style="display: block; background-color: rgba(0, 0, 0, 0.5); font-size: 14px;"
+      role="dialog"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content" style="padding: 0;">
+          <div class="modal-body">
+            <h5 class="modal-title mb-5 mt-3">Add Permission</h5>
+            <div class="mb-3">
+              <label for="permissionName">Permission Name</label>
+              <input type="text" class="form-control" v-model="newPermission.name" id="permissionName" required>
+            </div>
+            <div class="mb-3">
+              <label for="permissionDescription">Description</label>
+              <textarea class="form-control" v-model="newPermission.description" id="permissionDescription" required></textarea>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" @click="closeAddPermissionModal">Close</button>
+              <button type="button" class="btn btn-primary" @click="addPermission">Add Permission</button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- Optionally retain other modals or components as needed -->
 </template>
 
 <script>
@@ -94,105 +92,136 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      permissions: [], // To store the users fetched from the API
+      permissions: [],
       showModal: false,
-      selectedReservation: {},
+      showAddPermissionModal: false,
+      showAssignPermissionModal: false,
+      newPermission: {
+        id_permission: null,
+        name: '',
+        description: ''
+      },
+      userId: null,
+      selectedPermission: null,
     };
   },
   methods: {
-    // Fetch permissions data from the API
     fetchPermissions() {
-      axios
-        .get('http://localhost:8000/api/permissions') // Adjust the API endpoint
-        .then((response) => {
-          this.permissions = response.data;
-        })
-        .catch((error) => {
-          console.error('Error fetching permissions:', error);
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        alert('Unauthorized: No token found');
+        return;
+      }
+
+      axios.get('http://localhost:8000/api/permissions', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(response => {
+        this.permissions = response.data;
+      })
+      .catch(error => {
+        console.error('Error fetching permissions:', error);
+      });
+    },
+    openAddPermissionModal() {
+      this.newPermission = { id_permission: null, name: '', description: '' };
+      this.showAddPermissionModal = true;
+    },
+    closeAddPermissionModal() {
+      this.showAddPermissionModal = false;
+    },
+    addPermission() {
+      const token = localStorage.getItem('authToken');
+      const method = this.newPermission.id_permission ? 'put' : 'post';
+      const url = this.newPermission.id_permission 
+        ? `http://localhost:8000/api/permissions/${this.newPermission.id_permission}`
+        : 'http://localhost:8000/api/permissions';
+
+      axios[method](url, this.newPermission, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(response => {
+        this.fetchPermissions();
+        this.closeAddPermissionModal();
+        alert(this.newPermission.id_permission ? 'Permission updated successfully!' : 'Permission added successfully!');
+      })
+      .catch(error => {
+        console.error('Error adding/updating permission:', error);
+        alert('Failed to add/update permission.');
+      });
+    },
+    openAssignPermissionModal(permission) {
+      this.selectedPermission = permission; // Store the permission to be assigned
+      this.userId = null; // Reset userId input
+      this.showAssignPermissionModal = true; // Show the modal
+    },
+    closeAssignPermissionModal() {
+      this.showAssignPermissionModal = false; // Hide the modal
+    },
+    async assignPermission() {
+      const token = localStorage.getItem('authToken'); // Retrieve the token from local storage
+      if (!token) {
+        alert('Unauthorized: No token found');
+        return; // Exit if there's no token
+      }
+
+      try {
+        const response = await axios.post(`http://localhost:8000/api/users/${this.userId}/assign-permission`, {
+          id_permission: this.selectedPermission.id_permission // Pass the permission ID
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}` // Include the token in the Authorization header
+          }
         });
+        this.fetchPermissions(); // Refresh the permissions list
+        this.closeAssignPermissionModal(); // Close the modal
+        alert(response.data.message); // Show success message
+      } catch (error) {
+        console.error('Error assigning permission:', error);
+        alert('Failed to assign permission.');
+      }
     },
-    // Assign role to a user
-    assignRole(user) {
-      // Implement the logic to assign a role
-      // For example, you might send a POST request to assign a role
-      axios
-        .post(`http://localhost:8000/api/permissions/assign/${user.id}`)
-        .then((response) => {
-          // Handle success, e.g., refresh the permissions list
-          this.fetchPermissions();
-          alert(`Role assigned to ${user.username} successfully.`);
-        })
-        .catch((error) => {
-          console.error('Error assigning role:', error);
-          alert('Failed to assign role.');
-        });
-    },
-    // Revoke role from a user
-    revokeRole(user) {
-      // Implement the logic to revoke a role
-      // For example, you might send a POST or DELETE request to revoke a role
-      axios
-        .post(`http://localhost:8000/api/permissions/revoke/${user.id}`)
-        .then((response) => {
-          // Handle success, e.g., refresh the permissions list
-          this.fetchPermissions();
-          alert(`Role revoked from ${user.username} successfully.`);
-        })
-        .catch((error) => {
-          console.error('Error revoking role:', error);
-          alert('Failed to revoke role.');
-        });
-    },
-    // If you need to retain modal functionality
-    openClientModel(reservation) {
-      this.selectedReservation = reservation;
-      this.showModal = true;
-    },
-    closeClientModel() {
-      this.showModal = false;
-      this.selectedReservation = {};
-    },
+    deletePermission(id_permission) {
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        alert('Unauthorized: No token found');
+        return;
+      }
+
+      axios.delete(`http://localhost:8000/api/permissions/${id_permission}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(response => {
+        this.fetchPermissions();
+        alert('Permission deleted successfully!');
+      })
+      .catch(error => {
+        console.error('Error deleting permission:', error);
+        alert('Failed to delete permission.');
+      });
+    }
   },
   mounted() {
     this.fetchPermissions();
-    // If you still need to fetch other data, retain or remove accordingly
-    // this.fetchInProgressVoles();
-    // this.fetchInAttVoles();
-    // this.fetchCommentaires();
-    // this.fetchArchivVoles();
   },
 };
 </script>
 
 <style scoped>
 .modal {
-  background: rgba(0, 0, 0, 0.5);
-}
-.modal-content {
-  border-radius: 8px;
-  background-color: #fff;
-  max-width: 600px;
-  margin: auto;
-  padding: 14px 66px;
-  border-top-left-radius: 26px;
-  margin-top: 196px;
-  border-top-right-radius: 196px;
-}
-.modal-footer :hover {
-  background-color: #fabc3f;
-}
-.modal-footer {
-  display: flex;
-  justify-content: flex-end;
-}
-#title {
-  color: dodgerblue;
-}
-.icon-link {
-  text-decoration: none;
-}
-.icon {
-  font-size: 24px; /* Adjust size if needed */
-  color: dodgerblue; /* Adjust color if needed */
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
 }
 </style>

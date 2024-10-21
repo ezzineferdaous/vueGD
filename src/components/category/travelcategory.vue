@@ -2,7 +2,6 @@
   <div class="container my-4">
     <div class="d-flex justify-content-between align-items-center">
       <h2 class="text-center">Category Table</h2>
-      <!-- Add Category Button -->
       <button class="btn btn-success" @click="openAddCategoryModal">+ Add Category</button>
     </div>
 
@@ -95,28 +94,41 @@ export default {
   methods: {
     async fetchCategories() {
       try {
-        const response = await axios.get('http://localhost:8000/api/categories');
+        const token = localStorage.getItem('authToken'); // Retrieve the token from local storage
+        const response = await axios.get('http://localhost:8000/api/categories', {
+          headers: {
+            Authorization: `Bearer ${token}` // Include the token in the Authorization header
+          }
+        });
         this.categories = response.data;
+        console.log('Fetching categories:', this.categories);
       } catch (error) {
         console.error('Error fetching categories:', error);
+        if (error.response && error.response.status === 401) {
+          alert('Unauthorized access. Please log in.');
+          this.$router.push('/login'); // Redirect to login page
+        }
       }
     },
     openAddCategoryModal() {
       this.showAddModal = true;
+      this.resetAddForm();
     },
     closeAddModal() {
       this.showAddModal = false;
-      this.resetAddForm();
     },
     resetAddForm() {
-      this.newCategory = {
-        name: '',
-      };
+      this.newCategory.name = '';
     },
     async addCategory() {
       try {
+        const token = localStorage.getItem('authToken'); // Retrieve the token from local storage
         const response = await axios.post('http://localhost:8000/api/categories', {
           name: this.newCategory.name,
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}` // Include the token in the Authorization header
+          }
         });
         this.categories.push(response.data);
         alert('Category added successfully.');
@@ -133,18 +145,16 @@ export default {
     },
     closeEditModal() {
       this.showEditModal = false;
-      this.resetEditForm();
-    },
-    resetEditForm() {
-      this.currentCategory = {
-        id_category: null,
-        name: '',
-      };
     },
     async updateCategory() {
       try {
+        const token = localStorage.getItem('authToken'); // Retrieve the token from local storage
         const response = await axios.put(`http://localhost:8000/api/categories/${this.currentCategory.id_category}`, {
           name: this.currentCategory.name,
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}` // Include the token in the Authorization header
+          }
         });
 
         const index = this.categories.findIndex(category => category.id_category === this.currentCategory.id_category);
@@ -163,7 +173,13 @@ export default {
     async deleteCategory(id_category) {
       if (confirm('Are you sure you want to delete this category?')) {
         try {
-          await axios.delete(`http://localhost:8000/api/categories/${id_category}`);
+          const token = localStorage.getItem('authToken'); // Retrieve the token from local storage
+          await axios.delete(`http://localhost:8000/api/categories/${id_category}`, {
+            headers: {
+              Authorization: `Bearer ${token}` // Include the token in the Authorization header
+            }
+          });
+
           this.categories = this.categories.filter(category => category.id_category !== id_category);
           alert('Category deleted successfully.');
         } catch (error) {
@@ -172,10 +188,10 @@ export default {
         }
       }
     },
-  },
+  }
 };
 </script>
 
 <style scoped>
 /* Add any custom styles here */
-</style>expline all this code  
+</style>
