@@ -163,6 +163,7 @@ export default {
           });
           const index = this.documents.findIndex(doc => doc.id === this.editingDocumentId);
           if (index !== -1) {
+            //  remplace l'ancien document par celui mis à jour
             this.documents.splice(index, 1, response.data);
           }
           alert('Document updated successfully');
