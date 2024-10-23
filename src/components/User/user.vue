@@ -224,7 +224,7 @@ export default {
   methods: {
     async fetchuser() {
   try {
-  console.log('start fetch user')
+    console.log('start fetch user')
   localStorage.setItem('user', JSON.stringify(user));
 console.log('User stored in localStorage:', localStorage.getItem('user'));
     const response = await axios.get('http://localhost:8000/api/user', {
