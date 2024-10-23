@@ -1,7 +1,7 @@
 <template>
   <div style="margin-top: 140px;">
     <div class="container mt-4">
-      <h1 id="title"><u>Utilisateur</u></h1>
+      <h1 id="title"><u>user</u></h1>
 
       <div class="container mt-3 d-flex justify-content-between">
         <button type="button" class="btn btn-primary" id="button" @click="openAddModal">
@@ -22,65 +22,83 @@
             <th scope="col">Password</th>
             <th scope="col">Role</th>
             <th scope="col">Numero</th>
-            <th scope="col">Date Naissance</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="utilisateur in filteredUtilisateurs" :key="utilisateur.id">
-            <td>{{ utilisateur.id }}</td>
-            <td>{{ utilisateur.nom }}</td>
-            <td>{{ utilisateur.prenom }}</td>
-            <td>{{ utilisateur.email }}</td>
-            <td>********</td>
-            <td>{{ getRoleName(utilisateur.role_id) }}</td>
-            <td>{{ utilisateur.tel }}</td>
-            <td>{{ utilisateur.date_naissance }}</td>
+          <tr v-for="user in users" :key="user.id">
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.tel }}</td>
+            <td>{{ user.password }}</td>
+            <td>{{ user.role.name }}</td>
+            <td>{{ user.tel }}</td>
+          
             <td>
-              <!-- modifier les détails de l'utilisateur. -->
-              <a @click="openUpdateModal(utilisateur)"> <i class="fa fa-pencil" id="pencili"></i></a>
-              <a @click="openDeleteModal(utilisateur.id)"> <i class="fa fa-trash" id="trashh"></i></a>
+              <!-- modifier les détails de l'user. -->
+              <a @click="openUpdateModal(user)"> <i class="fa fa-pencil" id="pencili"></i></a>
+              <a @click="openDeleteModal(user.id)"> <i class="fa fa-trash" id="trashh"></i></a>
             </td>
           </tr>
         </tbody>
       </table>
 
+
+
+
+      <table class="table table-bordered mt-4">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nom</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="role in roles" :key="role.id">
+            <td>{{ role.id }}</td>
+            <td>{{ role.name }}</td>
+            
+          </tr>
+        </tbody>
+      </table>
       <!-- Add/Update Modal -->
       <div v-if="showModal" class="modal show" tabindex="-1" style="display: block; background-color: rgba(0,0,0,0.5)" role="dialog">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-body">
               <form @submit.prevent="submitForm">
-                <h5 class="modal-title">{{ isEdit ? 'Update Utilisateur' : 'dd' }}</h5>
+                <h5 class="modal-title">{{ isEdit ? 'Update user' : 'Add User' }}</h5>
                 <div class="mb-3">
                   <label for="nom" class="form-label">Nom</label>
-                  <input type="text" class="form-control" v-model="utilisateur.nom" placeholder="Enter Nom" required>
+                  <input type="text" class="form-control" v-model="user.nom" placeholder="Enter Nom" required>
                 </div>
                 <div class="mb-3">
                   <label for="prenom" class="form-label">Prenom</label>
-                  <input type="text" class="form-control" v-model="utilisateur.prenom" placeholder="Enter Prenom" required>
+                  <input type="text" class="form-control" v-model="user.prenom" placeholder="Enter Prenom" required>
                 </div>
                 <div class="mb-3">
                   <label for="email" class="form-label">Email</label>
-                  <input type="email" class="form-control" v-model="utilisateur.email" placeholder="Enter Email" required>
+                  <input type="email" class="form-control" v-model="user.email" placeholder="Enter Email" required>
                 </div>
                 <div class="mb-3" v-if="!isEdit">
                   <label for="password" class="form-label">Password</label>
-                  <input type="password" class="form-control" v-model="utilisateur.password" placeholder="Enter Password" required>
+                  <input type="password" class="form-control" v-model="user.password" placeholder="Enter Password" required>
                 </div>
                 <div class="mb-3 form-group">
                   <label for="exampleFormControlSelect1" class="form-label">Role</label>
-                  <select class="form-control" id="exampleFormControlSelect1" v-model="utilisateur.role_id" required>
+                  <select class="form-control" id="exampleFormControlSelect1" v-model="user.role_id" required>
                     <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.nom }}</option>
                   </select>
                 </div>
                 <div class="mb-3">
                   <label for="tel" class="form-label">Numero</label>
-                  <input type="text" class="form-control" v-model="utilisateur.tel" placeholder="Enter Numero" required>
+                  <input type="text" class="form-control" v-model="user.tel" placeholder="Enter Numero" required>
                 </div>
                 <div class="mb-3">
                   <label for="date_naissance" class="form-label">Date Naissance</label>
-                  <input type="date" class="form-control" v-model="utilisateur.date_naissance" required>
+                  <input type="date" class="form-control" v-model="user.date_naissance" required>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
@@ -91,7 +109,7 @@
           </div>
         </div>
       </div>
-      <h5 class="modal-title">{{ isEdit ? 'Update Utilisateur' : 'dd' }}</h5>
+      <!-- <h5 class="modal-title">{{ isEdit ? 'Update user' : 'Add User' }}</h5> -->
 
       <!-- Delete Modal -->
       <div v-if="showDeleteModal" class="modal" tabindex="-1" style="display: block; background-color: rgba(0,0,0,0.5)" role="dialog">
@@ -102,7 +120,7 @@
               <button type="button" class="btn-close" @click="closeDeleteModal"></button>
             </div>
             <div class="modal-body">
-              <p>Are you sure you want to delete this utilisateur?</p>
+              <p>Are you sure you want to delete this user?</p>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" @click="deleteUtilisateur">Delete</button>
@@ -168,9 +186,9 @@ export default {
       showRoleModal: false,
       showDeleteModal: false,
       isEdit: false,
-      utilisateurs: [],
+      user: [],
       roles: [],
-      utilisateur: {
+      user: {
         nom: '',
         prenom: '',
         email: '',
@@ -179,51 +197,86 @@ export default {
         tel: '',
         date_naissance: '',
       },
+     
+      filtereduser: [],
       role_nom:'',
-      utilisateurIdToDelete: null,
+      userIdToDelete: null,
       selectedRole: '', // New state for filtering by role
     };
   },
   mounted() {
-    this.fetchUtilisateurs();
+    this.fetchuser();
     this.fetchRoles();
   },
   computed: {
-    // filtrer dynamiquement la liste des utilisateurs 
-    filteredUtilisateurs() {
+    // filtrer dynamiquement la liste des user 
+    filtereduser() {
+
       if (this.selectedRole) {
-        return this.utilisateurs.filter(utilisateur => {
-          const roleName = this.getRoleName(utilisateur.role_id);
+        return this.user.filter(user => {
+          const roleName = this.getRoleName(user.role_id);
           return roleName && roleName.toLowerCase() === this.selectedRole.toLowerCase();
         });
       }
-      return this.utilisateurs;
+      return this.user;
     },
   },
   methods: {
-    fetchUtilisateurs() {
-      axios.get('http://localhost:8000/api/utilisateurs')
-        .then(response => {
-          this.utilisateurs = response.data;
-        });
-    },
-    fetchRoles() {
-      axios.get('http://localhost:8000/api/roles')
-        .then(response => {
-          this.roles = response.data;
-        });
+    async fetchuser() {
+  try {
+  console.log('start fetch user')
+  localStorage.setItem('user', JSON.stringify(user));
+console.log('User stored in localStorage:', localStorage.getItem('user'));
+    const response = await axios.get('http://localhost:8000/api/user', {
+      headers: {
+        Authorization: `Bearer ${token}` // Include the token in the Authorization header
+      }
+    });
+  console.log('fetch user in table users')
+
+    this.users = response.data;
+    console.log('Fetching users:', this.users);
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    if (error.response && error.response.status === 401) {
+      alert('Unauthorized access. Please log in.');
+      // Optionally redirect to login page
+      this.$router.push('/login'); // Adjust the path as needed
+    }
+  }
+
+
+},
+async fetchRoles() {
+  console.log('start fetch role')
+      const token = localStorage.getItem('authToken'); // Retrieve the token from local storage
+    const response = await axios.get('http://localhost:8000/api/roles', {
+      headers: {
+        Authorization: `Bearer ${token}` // Include the token in the Authorization header
+      }
+    });
+    console.log(' fetching role')
+
+    this.roles = response.data;
+    console.log(' end fetching role',this.roles)
+      // axios.get('http://localhost:8000/api/roles')
+      //   .then(response => {
+          
+          
+      //   });
+
     },
     submitForm() {
       if (this.isEdit) {
         this.updateUtilisateur();
       } else {
-        this.createUtilisateur();
+        this.createuser();
       }
     },
-    createUtilisateur() {
-      axios.post('http://localhost:8000/api/utilisateurs', this.utilisateur)
+    createuser() {
+      axios.post('http://localhost:8000/api/user', this.user)
         .then(response => {
-          this.utilisateurs.push(response.data);
+          this.user.push(response.data);
           this.closeModal();
         });
     },
@@ -239,21 +292,21 @@ export default {
       console.error('Error adding role:', error);
     });
     },
-    updateUtilisateur() {
-      const utilisateurData = {
-        nom: this.utilisateur.nom,
-        prenom: this.utilisateur.prenom,
-        email: this.utilisateur.email,
-        tel: this.utilisateur.tel,
-        date_naissance: this.utilisateur.date_naissance,
-        password: this.utilisateur.password || undefined,
-        role_id: this.utilisateur.role_id,
+    updateuser() {
+      const userData = {
+        nom: this.user.nom,
+        prenom: this.user.prenom,
+        email: this.user.email,
+        tel: this.user.tel,
+        date_naissance: this.user.date_naissance,
+        password: this.user.password || undefined,
+        role_id: this.user.role_id,
       };
 
-      axios.put(`http://localhost:8000/api/utilisateurs/${this.utilisateur.id}`, utilisateurData)
+      axios.put(`http://localhost:8000/api/user/${this.user.id}`, userData)
         .then(response => {
-          this.utilisateur = response.data;
-          this.fetchUtilisateurs();
+          this.user = response.data;
+          this.fetchduser();
           this.closeModal();
         })
         .catch(error => {
@@ -261,9 +314,9 @@ export default {
         });
     },
     deleteUtilisateur() {
-      axios.delete(`http://localhost:8000/api/utilisateurs/${this.utilisateurIdToDelete}`)
+      axios.delete(`http://localhost:8000/api/user/${this.userIdToDelete}`)
         .then(() => {
-          this.utilisateurs = this.utilisateurs.filter(u => u.id !== this.utilisateurIdToDelete);
+          this.user = this.user.filter(u => u.id !== this.userIdToDelete);
           this.closeDeleteModal();
         });
     },
@@ -281,7 +334,7 @@ export default {
     openAddModal() {
       this.showModal = true;
       this.isEdit = false;
-      this.utilisateur = {
+      this.user = {
         nom: '',
         prenom: '',
         email: '',
@@ -298,14 +351,14 @@ export default {
     closeRoleModal() {
       this.showRoleModal = false;
     },
-    openUpdateModal(utilisateur) {
+    openUpdateModal(user) {
       this.showModal = true;
       this.isEdit = true;
-      this.utilisateur = { ...utilisateur };
+      this.user = { ...user };
     },
     openDeleteModal(id) {
       this.showDeleteModal = true;
-      this.utilisateurIdToDelete = id;
+      this.userIdToDelete = id;
     },
 
     closeModal() {

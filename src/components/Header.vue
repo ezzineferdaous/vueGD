@@ -19,39 +19,45 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto">
-           
             <li class="nav-item">
               <router-link to="/" class="nav-link active">Home</router-link>
             </li>
-            <li class="nav-item">
-              <router-link to="/workshop" class="nav-link">workshop</router-link>
-            </li>
-            <!-- Admin Links -->
-            <!-- v-if="isAdmin" -->
-            <li class="nav-item" >
-              <router-link to="/User" class="nav-link">Users</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/category" class="nav-link">category</router-link>
-            </li>
             
-            <li class="nav-item" >
-
-              <router-link to="/permission " class="nav-link">permission </router-link>
-            </li>
-            <!-- Client Links -->
-            <!-- <li class="nav-item" v-if="isClient"> -->
+            <!-- Admin Links -->
+            <template v-if="isAdmin">
               <li class="nav-item">
+                <router-link to="/workshop" class="nav-link">Workshop</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/category" class="nav-link">Category</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/User" class="nav-link">Users</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/Profile" class="nav-link">Profile</router-link>
+              </li>
+            </template>
 
-              <router-link to="/Profile" class="nav-link">Profile</router-link>
-            </li>
-           
+            <!-- Client Links -->
+            <template v-if="isClient">
+              <li class="nav-item">
+                <router-link to="/Profile" class="nav-link">Profile</router-link>
+              </li>
+            </template>
+
           </ul>
+
           <div id="login" class="d-flex align-items-center">
-            <!-- Login/Logout logic -->
-            <router-link v-if="!isAuthenticated" to="/Login" class="btn btn-outline-primary me-2">Log in</router-link>
-            <router-link v-if="!isAuthenticated" to="/Logout" class="btn btn-outline-primary me-2">Log out</router-link>
-            <router-link v-if="isAuthenticated" to="/" @click.prevent="logout" class="btn btn-outline-danger me-2">Log out</router-link>
+            <!-- Authentication logic -->
+            <template v-if="!isAuthenticated">
+              <router-link to="/Login" class="btn btn-outline-primary me-2">Log in</router-link>
+              <router-link to="/Register" class="btn btn-secondary">Register</router-link>
+            </template>
+            <template v-else>
+              <router-link to="/Logout" @click="logout" class="btn btn-secondary">Log out</router-link>
+            </template>
+
             <!-- Social Links -->
             <div class="social_links d-none d-lg-block">
               <ul class="list-unstyled d-flex">
@@ -82,20 +88,22 @@ export default {
     isAuthenticated() {
       return localStorage.getItem('user') !== null;
     },
-    // Determine if the user has admin privileges
+    // Determine if the user has admin privileges (role_id = 1)
     isAdmin() {
       const user = JSON.parse(localStorage.getItem('user'));
       return user && user.role_id === 1; // Assuming 1 is the admin role ID
     },
+    // Determine if the user is a client (role_id = 2)
     isClient() {
       const user = JSON.parse(localStorage.getItem('user'));
       return user && user.role_id === 2; // Assuming 2 is the client role ID
     }
   },
   methods: {
+    // Logout method
     logout() {
       localStorage.removeItem('user'); // Remove user from localStorage
-      this.$router.push({ name: 'Login' }); // Navigate to Login page
+      this.$router.push({ name: 'Login' }); // Navigate to the Login page
     }
   }
 };

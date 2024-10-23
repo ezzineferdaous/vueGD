@@ -2,7 +2,6 @@
   <div class="wrapper container">
     <div class="box">
       <form @submit.prevent="login" class="form">
-        <!-- Login Form -->
         <div class="login-form">
           <div class="mb-3">
             <label for="email" class="form-label">Email</label>
@@ -57,11 +56,20 @@ export default {
       email: this.email,
       password: this.password,
     });
+
     console.log('Login response:', response.data); // Log the response
     const { user, token } = response.data;
 
-    // Store the token
-    localStorage.setItem('authToken', token);
+    // Check if user and token exist in the response
+    if (!user || !token) {
+      this.errorMessage = 'Invalid login response';
+      return;
+    }
+
+    // Store the user data and token in localStorage
+    localStorage.setItem('user', JSON.stringify(user)); // Store user data
+    localStorage.setItem('authToken', token); // Store token
+
     this.$router.push('/'); // Redirect after successful login
   } catch (error) {
     if (error.response) {
