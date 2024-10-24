@@ -24,27 +24,27 @@
             </li>
             
             <!-- Admin Links -->
-            <template v-if="isAdmin">
+           
               <li class="nav-item">
-                <router-link to="/workshop" class="nav-link">Workshop</router-link>
+                <router-link to="/workshop" class="nav-link" v-if="isAdmin">Workshop</router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/category" class="nav-link">Category</router-link>
+                <router-link to="/category" class="nav-link" v-if="isAdmin">Category</router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/User" class="nav-link">Users</router-link>
+                <router-link to="/User" class="nav-link" v-if="isAdmin">Users</router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/Profile" class="nav-link">Profile</router-link>
+                <router-link to="/Profile" class="nav-link" v-if="isAdmin">Profile</router-link>
               </li>
-            </template>
+          
 
             <!-- Client Links -->
-            <template v-if="isClient">
+            
               <li class="nav-item">
-                <router-link to="/Profile" class="nav-link">Profile</router-link>
+                <router-link to="/Profile" class="nav-link" v-if="isClient">Profile</router-link>
               </li>
-            </template>
+        
 
           </ul>
 
@@ -55,7 +55,7 @@
               <router-link to="/Register" class="btn btn-secondary">Register</router-link>
             </template>
             <template v-else>
-              <router-link to="/Logout" @click="logout" class="btn btn-secondary">Log out</router-link>
+              <router-link to="/" @click="logout" class="btn btn-secondary">Log out</router-link>
             </template>
 
             <!-- Social Links -->
@@ -84,28 +84,42 @@
 export default {
   name: 'HeaderComponent',
   computed: {
-    // Check if the user is authenticated
-    isAuthenticated() {
-      return localStorage.getItem('user') !== null;
-    },
-    // Determine if the user has admin privileges (role_id = 1)
-    isAdmin() {
+ isAuthenticated() {
+        return localStorage.getItem('user') !== null;
+      },
+  isAdmin() {
+    try {
       const user = JSON.parse(localStorage.getItem('user'));
-      return user && user.role_id === 1; // Assuming 1 is the admin role ID
-    },
-    // Determine if the user is a client (role_id = 2)
-    isClient() {
-      const user = JSON.parse(localStorage.getItem('user'));
-      return user && user.role_id === 2; // Assuming 2 is the client role ID
+      console.log('isAdmin user:', user);
+      return user && user.role_id === 1;
+    } catch (error) {
+      console.error('Error in isAdmin:', error);
+      return false;
     }
   },
-  methods: {
-    // Logout method
-    logout() {
-      localStorage.removeItem('user'); // Remove user from localStorage
-      this.$router.push({ name: 'Login' }); // Navigate to the Login page
+  isClient() {
+    try {
+      const user = JSON.parse(localStorage.getItem('user'));
+      console.log('isClient user:', user);
+      return user && user.role_id === 2;
+    } catch (error) {
+      console.error('Error in isClient:', error);
+      return false;
     }
   }
+}
+,
+methods: {
+  logout() {
+    try {
+      localStorage.removeItem('user'); // Safely remove user
+      this.$router.push({ name: 'Login' }); // Navigate to login
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
+  }
+}
+
 };
 </script>
 

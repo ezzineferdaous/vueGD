@@ -1,123 +1,165 @@
 <template>
-  <div class="container my-4">
-    <h2 class="text-center">User Profile</h2>
-    <div class="row justify-content-center">
-      <div class="col-lg-4 col-md-6">
-        <div class="card">
-          <img :src="user.profilePicture" class="card-img-top" alt="Profile Picture" />
-          <div class="card-body text-center">
-            <h5 class="card-title">{{ user.name }}</h5>
-            <p class="card-text">{{ user.email }}</p>
-            <button class="btn btn-primary" @click="editMode = !editMode">
-              {{ editMode ? 'Cancel' : 'Edit Profile' }}
-            </button>
-          </div>
+  <div id="mag">
+  <div class="container mt-4">
+    <h2 class="mb-4">Profile Information</h2>
+    <form @submit.prevent="submitForm" class="mb-5" >
+      <div class="row mb-3 ">
+        
+        <div class="col-md-6">
+          <label for="name" class="form-label">userName:</label>
+          <input type="text" class="form-control" v-model="profile.nom" id="name" />
         </div>
+        
       </div>
-      <div class="col-lg-6 col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Profile Details</h5>
-            <form v-if="editMode" @submit.prevent="updateProfile">
-              <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="username"
-                  v-model="user.username"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="name"
-                  v-model="user.name"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  id="email"
-                  v-model="user.email"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  id="password"
-                  v-model="user.password"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label for="role_id" class="form-label">Role ID</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="role_id"
-                  v-model="user.role_id"
-                  required
-                />
-              </div>
-              <button type="submit" class="btn btn-success">Save Changes</button>
-            </form>
-            <div v-else>
-              <p><strong>Username:</strong> {{ user.username }}</p>
-              <p><strong>Name:</strong> {{ user.name }}</p>
-              <p><strong>Email:</strong> {{ user.email }}</p>
-              <p><strong>Role ID:</strong> {{ user.role_id }}</p>
-            </div>
+     
+      <div class="row mb-3">
+        <div class="col-md-6">
+      <label for="email" class="form-label">Email:</label>
+      <input type="email" class="form-control" v-model="profile.email" id="email" disabled/>
+    </div>
+       
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="numero" class="form-label">Numero:</label>
+          <input type="text" class="form-control" v-model="profile.tel" id="numero" />
+        </div>
+        <div class="col-md-6">
+          <label for="password" class="form-label">Password:</label>
+          <input type="password" class="form-control" v-model="profile.password" id="password" />
+        </div>
+            
+      </div>
+      
+
+      <button type="submit" class="btn btn-warning w-100 mb-5">update</button>
+    </form>
+
+    
+  </div>
+</div>
+
+<!-- Confermation Modal -->
+<div v-if="showModal" class="modal" tabindex="-1" style="display: block; background-color: rgba(0,0,0,0.5)" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Confirm Update</h5>
+
+          </div>
+          <div class="modal-body">
+            <p>Your personal information has been modified successfully.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" @click="closeDeleteModal">OK</button>
           </div>
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
-  name: 'ProfilePage',
   data() {
     return {
-      editMode: false,
-      user: {
-        username: 'johndoe', // Added username
-        name: 'John Doe',
-        email: 'johndoe@example.com',
-        password: '', // Placeholder for password
-        role_id: '1', // Added role_id
-        profilePicture: 'https://via.placeholder.com/150',
+      showModal : false,
+      user:[],
+      profile: {
+        id: '',
+        nom: '',
+        prenom :'',
+        password: '',
+        email: '',
+        tel: '',
+        date_naissance: ''
       },
+      res: [],
+      comments:[],
+      
     };
   },
-  methods: {
-    updateProfile() {
-      
-      // Implement profile update logic here
-      console.log('Profile updated:', this.user);
-      this.editMode = false; // Exit edit mode after saving
-    },
+  mounted(){
+    this.isUser();
+    this.fetchUser();
+    this.fetchRes();
+    this.fetchComments();
   },
+  methods: {
+    isUser(){
+          const user = JSON.parse(localStorage.getItem('user'));
+          this.user = user
+      },
+      closeDeleteModal(){
+        this.showModal = false;
+      },
+    submitForm() {
+      const userData = {
+      nom: this.profile.nom,
+      prenom: this.profile.prenom,
+      email: this.profile.email,
+      tel: this.profile.tel,
+      date_naissance: this.profile.date_naissance,
+    };
+    // Add password only if it's filled in
+if (this.profile.password) {
+  userData.password = this.profile.password;
+}
+    axios.put(`http://localhost:8000/api/user/${this.user.id}`, userData)
+      .then(response => {
+        this.profile = response.data;
+        this.profile.password ='';
+        this.showModal = true;
+        //this.fetchUser();
+        console.log(' fetching USER Updating with Succes:', this.profile);
+      })
+      .catch(error => {
+        console.error('There was an  on Update User error!', error);
+      });
+    },
+    fetchUser(){
+      axios.get(`http://localhost:8000/api/user/${this.user.id}`)
+      .then(response => {
+        this.profile = response.data;
+        this.profile.password ='';
+        //this.fetchUser();
+        console.log(' fetching USER Updating with Succes:', this.profile);
+      })
+      .catch(error => {
+        console.error('There was an  on Update User error!', error);
+      });
+    },
+    fetchComments() {
+    try {
+      axios.get(`http://localhost:8000/api/commentaire/user/${this.user.id}`)
+      .then(response=> {
+          // Store the fetched data
+          this.comments = response.data;
+          console.log(' fetching comment with Succes:', this.comments);
+
+    });
+      
+    } catch (error) {
+      console.error('Error fetching comment details:', error);
+    }
+  },
+  fetchRes() {
+    try {
+      axios.get(`http://localhost:8000/api/reserves/user/${this.user.id}`)
+      .then(response=> {
+          // Store the fetched data
+          this.res = response.data;
+          console.log(' fetching reservation with Succes:', this.res);
+
+    });
+      
+    } catch (error) {
+      console.error('Error fetching reservation details:', error);
+    }
+  },
+  
+  }
 };
 </script>
 
-<style scoped>
-.card {
-  margin-bottom: 20px;
-}
-.card-img-top {
-  border-radius: 50%;
-  max-width: 150px;
-  margin: 0 auto;
-}
-</style>
+

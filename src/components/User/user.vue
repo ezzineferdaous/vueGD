@@ -16,13 +16,11 @@
         <thead class="table-dark">
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">Nom</th>
-            <th scope="col">Prenom</th>
+            <th scope="col">userNom</th>
             <th scope="col">Email</th>
             <th scope="col">Password</th>
             <th scope="col">Role</th>
             <th scope="col">Numero</th>
-            <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -71,13 +69,10 @@
               <form @submit.prevent="submitForm">
                 <h5 class="modal-title">{{ isEdit ? 'Update user' : 'Add User' }}</h5>
                 <div class="mb-3">
-                  <label for="nom" class="form-label">Nom</label>
+                  <label for="nom" class="form-label">userNom</label>
                   <input type="text" class="form-control" v-model="user.nom" placeholder="Enter Nom" required>
                 </div>
-                <div class="mb-3">
-                  <label for="prenom" class="form-label">Prenom</label>
-                  <input type="text" class="form-control" v-model="user.prenom" placeholder="Enter Prenom" required>
-                </div>
+               
                 <div class="mb-3">
                   <label for="email" class="form-label">Email</label>
                   <input type="email" class="form-control" v-model="user.email" placeholder="Enter Email" required>
@@ -96,10 +91,7 @@
                   <label for="tel" class="form-label">Numero</label>
                   <input type="text" class="form-control" v-model="user.tel" placeholder="Enter Numero" required>
                 </div>
-                <div class="mb-3">
-                  <label for="date_naissance" class="form-label">Date Naissance</label>
-                  <input type="date" class="form-control" v-model="user.date_naissance" required>
-                </div>
+               
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
                   <button type="submit" class="btn btn-primary">{{ isEdit ? 'Update' : 'Save' }}</button>
@@ -186,7 +178,6 @@ export default {
       showRoleModal: false,
       showDeleteModal: false,
       isEdit: false,
-      user: [],
       roles: [],
       user: {
         nom: '',
@@ -223,30 +214,28 @@ export default {
   },
   methods: {
     async fetchuser() {
-  try {
-    console.log('start fetch user')
-  localStorage.setItem('user', JSON.stringify(user));
-console.log('User stored in localStorage:', localStorage.getItem('user'));
+    console.log('start fetch user');
+    
+    // Make the API request to fetch user data
     const response = await axios.get('http://localhost:8000/api/user', {
       headers: {
         Authorization: `Bearer ${token}` // Include the token in the Authorization header
       }
     });
-  console.log('fetch user in table users')
+    
+    console.log('fetch user in table users');
 
+    // Store the fetched user data in a component property
     this.users = response.data;
+
+    // Store user data in localStorage
+    localStorage.setItem('user', JSON.stringify(this.users)); // Store the fetched user data
+    console.log('User stored in localStorage:', localStorage.getItem('user'));
+    
     console.log('Fetching users:', this.users);
-  } catch (error) {
-    console.error('Error fetching users:', error);
-    if (error.response && error.response.status === 401) {
-      alert('Unauthorized access. Please log in.');
-      // Optionally redirect to login page
-      this.$router.push('/login'); // Adjust the path as needed
-    }
-  }
-
-
+  
 },
+
 async fetchRoles() {
   console.log('start fetch role')
       const token = localStorage.getItem('authToken'); // Retrieve the token from local storage
@@ -259,11 +248,11 @@ async fetchRoles() {
 
     this.roles = response.data;
     console.log(' end fetching role',this.roles)
-      // axios.get('http://localhost:8000/api/roles')
-      //   .then(response => {
+      axios.get('http://localhost:8000/api/roles')
+        .then(response => {
           
           
-      //   });
+        });
 
     },
     submitForm() {
@@ -327,9 +316,7 @@ async fetchRoles() {
           this.roles = this.roles.filter(v => v.id !== id);
           this.fetchRoles();
         })
-        .catch(error => {
-          console.error('Error deleting volle:', error);
-        });
+        
     },
     openAddModal() {
       this.showModal = true;

@@ -4,12 +4,7 @@
       <h2 class="text-center">Documents Table</h2>
       <button class="btn btn-primary" @click="showAddDocumentModal">Add Document</button>
     </div>
-    <input
-      type="file"
-      ref="fileInput"
-      @change="handleFileUpload"
-      style="display: none;"
-    />
+    <input type="file" ref="fileInput" @change="handleFileUpload" style="display: none;" />
 
     <table class="table table-bordered table-striped">
       <thead class="thead-dark">
@@ -17,7 +12,6 @@
           <th scope="col">#</th>
           <th scope="col">Title</th>
           <th scope="col">Content</th>
-          <th scope="col">Category</th>
           <th scope="col">User</th>
           <th scope="col">Format</th>
           <th scope="col">File Path</th>
@@ -29,19 +23,11 @@
           <th scope="row">{{ index + 1 }}</th>
           <td>{{ document.title }}</td>
           <td>{{ document.content }}</td>
-          <td>{{ document.category ? document.category.name : 'N/A' }}</td>
           <td>{{ document.user ? document.user.name : 'N/A' }}</td>
-          <td>
-            <select v-model="document.format" class="form-control">
-              <option value="PDF">PDF</option>
-              <option value="Excel">Excel</option>
-              <option value="Word">Word</option>
-            </select>
-          </td>
+          <td>{{ document.format }}</td>
           <td>{{ document.file_path }}</td>
           <td>
-            <i class="fa fa-eye text-info mx-2" @click="viewDocument(document.id)" style="cursor: pointer;"></i>
-            <i class="fa fa-edit text-warning mx-2" @click="editDocument(document.id)" style="cursor: pointer;"></i>
+            <i class="fa fa-edit text-warning mx-2" @click="editDocument(document)" style="cursor: pointer;"></i>
             <i class="fa fa-trash text-danger mx-2" @click="deleteDocument(document.id)" style="cursor: pointer;"></i>
             <i class="fa fa-download text-success mx-2" @click="downloadDocument(document.file_path)" style="cursor: pointer;"></i>
           </td>
@@ -49,7 +35,7 @@
       </tbody>
     </table>
 
-    <!-- Modal for Adding Document -->
+    <!-- Modal for Adding/Editing Document -->
     <div v-if="showModal" class="modal fade show" tabindex="-1" style="display: block; background: rgba(0,0,0,0.5);">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -58,7 +44,7 @@
             <button type="button" class="close" @click="closeModal">&times;</button>
           </div>
           <div class="modal-body">
-            <form @submit.prevent="addOrUpdateDocument">
+            <form @submit.prevent="isEditing ? updateDocument() : addDocument()">
               <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" id="title" v-model="newDocument.title" class="form-control" required />
@@ -113,113 +99,131 @@ export default {
     this.fetchDocuments();
   },
   methods: {
-    
     async fetchDocuments() {
-  try {
-    const token = localStorage.getItem('authToken'); // Retrieve the token from local storage
-    const response = await axios.get('http://localhost:8000/api/document', {
-      headers: {
-        Authorization: `Bearer ${token}` // Include the token in the Authorization header
+      try {
+        const token = localStorage.getItem('authToken');
+        const response = await axios.get('http://localhost:8000/api/document', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        this.documents = response.data;
+      } catch (error) {
+        console.error('Error fetching documents:', error);
+        if (error.response && error.response.status === 401) {
+          alert('Unauthorized access. Please log in.');
+          this.$router.push('/login');
+        }
       }
-    });
-    this.documents = response.data;
-    console.log('Fetching documents:', this.documents);
-  } catch (error) {
-    console.error('Error fetching documents:', error);
-    if (error.response && error.response.status === 401) {
-      alert('Unauthorized access. Please log in.');
-      // Optionally redirect to login page
-      this.$router.push('/login'); // Adjust the path as needed
-    }
-  }
-
-
-},
+    },
 
     showAddDocumentModal() {
       this.showModal = true;
-      this.resetForm();
+      this.resetForm(); // Reset form fields
     },
+    
     closeModal() {
       this.showModal = false;
       this.resetForm();
     },
-    async addOrUpdateDocument() {
-      console.log('start add document');
+
+    async addDocument() {
+      const token = localStorage.getItem('authToken');
+      const formData = new FormData();
+      formData.append('title', this.newDocument.title);
+      formData.append('content', this.newDocument.content);
+      formData.append('format', this.newDocument.format);
+
+      if (this.selectedFile) {
+        formData.append('file', this.selectedFile);
+      }
+
       try {
-        const formData = new FormData();
-        formData.append('title', this.newDocument.title);
-        formData.append('content', this.newDocument.content);
-        formData.append('format', this.newDocument.format);
-        if (this.selectedFile) {
-          formData.append('file', this.selectedFile);
-        }
-      console.log(' add format data document', formData);
-
-        let response;
-        if (this.isEditing) {
-          response = await axios.put(`http://localhost:8000/api/document/${this.editingDocumentId}`, formData, {
-            headers: { 'Content-Type': 'multipart/form-data' },
-          });
-          const index = this.documents.findIndex(doc => doc.id === this.editingDocumentId);
-          if (index !== -1) {
-            //  remplace l'ancien document par celui mis à jour
-            this.documents.splice(index, 1, response.data);
-          }
-          alert('Document updated successfully');
-        } else {
-      console.log(' start send format data document', formData);
-
-          response = await axios.post('http://localhost:8000/api/document', formData, {
-            headers: { 'Content-Type': 'multipart/form-data' },
-          });
-          this.documents.push(response.data);
-          alert('Document added successfully');
-        }
+        const response = await axios.post('http://localhost:8000/api/document', formData, {
+          headers: { 
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        this.documents.push(response.data);
+        alert('Document added successfully');
       } catch (error) {
-        console.error('Error saving document:', error);
-        alert('There was an error saving the document. Please try again.');
+        console.error('Error adding document:', error);
+        alert('There was an error adding the document. Please try again.');
       } finally {
         this.closeModal();
       }
     },
-    adddocument(){
 
-    },
-    async viewDocument(id) {
+    async updateDocument() {
+      const token = localStorage.getItem('authToken');
+      const formData = new FormData();
+      formData.append('title', this.newDocument.title);
+      formData.append('content', this.newDocument.content);
+      formData.append('format', this.newDocument.format);
+
+      if (this.selectedFile) {
+        formData.append('file', this.selectedFile);
+      }
+
       try {
-        const response = await axios.get(`http://localhost:8000/api/document/${id}`);
-        console.log('Document details:', response.data);
-        // Consider implementing a modal to show document details
+        const response = await axios.put(`http://localhost:8000/api/document/${this.editingDocumentId}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        const index = this.documents.findIndex(doc => doc.id === this.editingDocumentId);
+        if (index !== -1) {
+          this.documents.splice(index, 1, response.data);
+        }
+
+        alert('Document updated successfully.');
       } catch (error) {
-        console.error('Error viewing document:', error);
-        alert('There was an error retrieving the document details. Please try again.');
+        console.error('Error updating document:', error);
+        alert('There was an error updating the document. Please try again.');
+      } finally {
+        this.closeModal();
       }
     },
-    async editDocument(id) {
-      try {
-        const response = await axios.get(`http://localhost:8000/api/document/${id}`);
-        this.newDocument = { ...response.data };
-        this.isEditing = true;
-        this.editingDocumentId = id;
-        this.showModal = true;
-      } catch (error) {
-        console.error('Error fetching document for editing:', error);
-        alert('There was an error retrieving the document for editing. Please try again.');
-      }
+
+    editDocument(document) {
+      this.newDocument = { ...document }; // Use spread operator to clone the document
+      this.editingDocumentId = document.id; // Store the ID for updating
+      this.isEditing = true; // Set editing mode
+      this.showModal = true; // Show the modal
     },
+
     async deleteDocument(id) {
       if (confirm('Are you sure you want to delete this document?')) {
+        const token = localStorage.getItem('authToken');
         try {
-          await axios.delete(`http://localhost:8000/api/document/${id}`);
-          this.documents = this.documents.filter(document => document.id !== id);
-          alert('Document deleted successfully.');
+          await axios.delete(`http://localhost:8000/api/document/${id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+          this.documents = this.documents.filter(doc => doc.id !== id);
+          alert('Document deleted successfully');
         } catch (error) {
           console.error('Error deleting document:', error);
           alert('There was an error deleting the document. Please try again.');
         }
       }
     },
+
+    handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        this.selectedFile = file;
+        this.newDocument.file_path = file.name; // Display the file name in the form
+      }
+    },
+
+    triggerFileInput() {
+      this.$refs.fileInput.click(); // Trigger the file input click
+    },
+
     resetForm() {
       this.newDocument = {
         title: '',
@@ -231,20 +235,33 @@ export default {
       this.isEditing = false;
       this.editingDocumentId = null;
     },
-    handleFileUpload(event) {
-      this.selectedFile = event.target.files[0];
-      this.newDocument.file_path = this.selectedFile ? this.selectedFile.name : '';
-    },
-    triggerFileInput() {
-      this.$refs.fileInput.click();
-    },
+
     downloadDocument(filePath) {
-      window.open(filePath, '_blank');
+      const link = document.createElement('a');
+      link.href = `http://localhost:8000/${filePath}`;
+      link.download = filePath.split('/').pop(); // Use the file name for download
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     },
   },
 };
 </script>
 
-<style>
-/* Add custom styles here */
+<style scoped>
+.container {
+  margin: 20px auto;
+}
+
+.modal {
+  display: none;
+}
+
+.modal.fade.show {
+  display: block;
+}
+
+.close {
+  cursor: pointer;
+}
 </style>
