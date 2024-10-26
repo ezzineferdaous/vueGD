@@ -84,27 +84,30 @@
 export default {
   name: 'HeaderComponent',
   computed: {
+    //  vérifiant si l' userélément existe dans localStorage.
  isAuthenticated() {
         return localStorage.getItem('user') !== null;
       },
   isAdmin() {
-    try {
+    if(localStorage.getItem('user') !== null){
+
+    
       const user = JSON.parse(localStorage.getItem('user'));
-      console.log('isAdmin user:', user);
+      if(user.role_id === 1){
+        console.log('isAdmin user:', user);
+      }
+      
       return user && user.role_id === 1;
-    } catch (error) {
-      console.error('Error in isAdmin:', error);
-      return false;
     }
   },
   isClient() {
-    try {
+    if(localStorage.getItem('user') !== null){
       const user = JSON.parse(localStorage.getItem('user'));
-      console.log('isClient user:', user);
+      
+      if(user.role_id === 2){
+        console.log('isClient user:', user);
+      }
       return user && user.role_id === 2;
-    } catch (error) {
-      console.error('Error in isClient:', error);
-      return false;
     }
   }
 }
@@ -113,7 +116,8 @@ methods: {
   logout() {
     try {
       localStorage.removeItem('user'); // Safely remove user
-      this.$router.push({ name: 'Login' }); // Navigate to login
+      localStorage.removeItem('authToken'); // Safely remove user
+      this.$router.push({ name: 'home' }); // Navigate to login
     } catch (error) {
       console.error("Error during logout:", error);
     }

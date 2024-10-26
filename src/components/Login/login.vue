@@ -43,11 +43,11 @@ export default {
 
         // Store user data in localStorage
         localStorage.setItem('user', JSON.stringify(response.data.user));
-
+        localStorage.setItem('authToken',JSON.stringify(response.data.token));
         // Redirect to home page after successful login
         this.$router.push({ name: 'home' });
       } 
-    },
+    }
 
   
 };

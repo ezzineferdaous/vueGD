@@ -15,6 +15,7 @@
           <th scope="col">User</th>
           <th scope="col">Format</th>
           <th scope="col">File Path</th>
+          <th scope="col">Category</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
@@ -25,7 +26,10 @@
           <td>{{ document.content }}</td>
           <td>{{ document.user ? document.user.name : 'N/A' }}</td>
           <td>{{ document.format }}</td>
-          <td>{{ document.file_path }}</td>
+          <td>
+            <a :href="document.file_path" target="_blank" class="text-primary">View File</a>
+          </td>
+          <td>{{ document.category ? document.category.name : 'N/A' }}</td>
           <td>
             <i class="fa fa-edit text-warning mx-2" @click="editDocument(document)" style="cursor: pointer;"></i>
             <i class="fa fa-trash text-danger mx-2" @click="deleteDocument(document.id)" style="cursor: pointer;"></i>
@@ -62,6 +66,12 @@
                 </select>
               </div>
               <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" v-model="newDocument.category_id" class="form-control" required>
+                  <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
+                </select>
+              </div>
+              <div class="form-group">
                 <label for="file_path">File</label>
                 <input type="text" id="file_path" v-model="newDocument.file_path" class="form-control" readonly />
                 <button type="button" @click="triggerFileInput" class="btn btn-secondary mt-2">Upload File</button>
@@ -83,12 +93,14 @@ export default {
   data() {
     return {
       documents: [],
+      categories: [], // Added to store categories
       showModal: false,
       newDocument: {
         title: '',
         content: '',
         format: 'PDF',
         file_path: '',
+        category_id: null, // Added for category
       },
       selectedFile: null,
       isEditing: false,
@@ -97,24 +109,23 @@ export default {
   },
   mounted() {
     this.fetchDocuments();
+    this.fetchCategories(); // Fetch categories on mount
   },
   methods: {
     async fetchDocuments() {
-      try {
-        const token = localStorage.getItem('authToken');
-        const response = await axios.get('http://localhost:8000/api/document', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-        this.documents = response.data;
-      } catch (error) {
-        console.error('Error fetching documents:', error);
-        if (error.response && error.response.status === 401) {
-          alert('Unauthorized access. Please log in.');
-          this.$router.push('/login');
-        }
-      }
+      const token = localStorage.getItem('authToken');
+      const response = await axios.get('http://localhost:8000/api/document', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      this.documents = response.data;
+    },
+
+    async fetchCategories() {
+      const token = localStorage.getItem('authToken');
+      const response = await axios.get('http://localhost:8000/api/categories', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      this.categories = response.data; // Store fetched categories
     },
 
     showAddDocumentModal() {
@@ -133,25 +144,21 @@ export default {
       formData.append('title', this.newDocument.title);
       formData.append('content', this.newDocument.content);
       formData.append('format', this.newDocument.format);
+      formData.append('category_id', this.newDocument.category_id); // Add category_id to formData
 
       if (this.selectedFile) {
         formData.append('file', this.selectedFile);
       }
 
-      try {
-        const response = await axios.post('http://localhost:8000/api/document', formData, {
-          headers: { 
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        this.documents.push(response.data);
-        alert('Document added successfully');
-      } catch (error) {
-        console.error('Error adding document:', error);
-        alert('There was an error adding the document. Please try again.');
-      } finally {
-        this.closeModal();
-      }
+      await axios.post('http://localhost:8000/api/document', formData, {
+        headers: { 
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      this.fetchDocuments(); // Refresh the documents list
+      this.closeModal();
     },
 
     async updateDocument() {
@@ -160,31 +167,21 @@ export default {
       formData.append('title', this.newDocument.title);
       formData.append('content', this.newDocument.content);
       formData.append('format', this.newDocument.format);
+      formData.append('category_id', this.newDocument.category_id); // Add category_id to formData
 
       if (this.selectedFile) {
         formData.append('file', this.selectedFile);
       }
 
-      try {
-        const response = await axios.put(`http://localhost:8000/api/document/${this.editingDocumentId}`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${token}`
-          }
-        });
-
-        const index = this.documents.findIndex(doc => doc.id === this.editingDocumentId);
-        if (index !== -1) {
-          this.documents.splice(index, 1, response.data);
+      await axios.put(`http://localhost:8000/api/document/${this.editingDocumentId}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`
         }
+      });
 
-        alert('Document updated successfully.');
-      } catch (error) {
-        console.error('Error updating document:', error);
-        alert('There was an error updating the document. Please try again.');
-      } finally {
-        this.closeModal();
-      }
+      this.fetchDocuments(); // Refresh the documents list
+      this.closeModal();
     },
 
     editDocument(document) {
@@ -197,18 +194,10 @@ export default {
     async deleteDocument(id) {
       if (confirm('Are you sure you want to delete this document?')) {
         const token = localStorage.getItem('authToken');
-        try {
-          await axios.delete(`http://localhost:8000/api/document/${id}`, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          });
-          this.documents = this.documents.filter(doc => doc.id !== id);
-          alert('Document deleted successfully');
-        } catch (error) {
-          console.error('Error deleting document:', error);
-          alert('There was an error deleting the document. Please try again.');
-        }
+        await axios.delete(`http://localhost:8000/api/document/${id}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        this.fetchDocuments(); // Refresh the documents list
       }
     },
 
@@ -230,6 +219,7 @@ export default {
         content: '',
         format: 'PDF',
         file_path: '',
+        category_id: null, // Reset category
       };
       this.selectedFile = null;
       this.isEditing = false;
@@ -238,30 +228,16 @@ export default {
 
     downloadDocument(filePath) {
       const link = document.createElement('a');
-      link.href = `http://localhost:8000/${filePath}`;
-      link.download = filePath.split('/').pop(); // Use the file name for download
+      link.href = filePath;
+      link.setAttribute('download', filePath.split('/').pop()); // Set download attribute
       document.body.appendChild(link);
-      link.click();
+      link.click(); // Programmatically click the link to trigger download
       document.body.removeChild(link);
     },
-  },
+  }
 };
 </script>
 
 <style scoped>
-.container {
-  margin: 20px auto;
-}
-
-.modal {
-  display: none;
-}
-
-.modal.fade.show {
-  display: block;
-}
-
-.close {
-  cursor: pointer;
-}
+/* Ajoutez vos styles ici si nécessaire */
 </style>
